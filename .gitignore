@@ -28,6 +28,9 @@ ExportedObj/
 *.VC.db
 *.pidb.meta
 
+
+
+
 # OS generated files
 .DS_Store
 .DS_Store?
@@ -51,3 +54,5 @@ sysinfo.txt
 *.aab
 *.xcodeproj
 *.xcworkspace
+
+.vs/
