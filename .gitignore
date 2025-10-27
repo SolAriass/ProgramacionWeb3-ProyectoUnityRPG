@@ -41,8 +41,8 @@ Desktop.ini
 # User-specific files
 *.swp
 *.lock
-*.prefab.meta
-*.asset.meta
+
+
 .idea/
 .vscode/
 
