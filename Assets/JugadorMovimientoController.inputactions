@@ -1,96 +1,76 @@
 {
     "version": 1,
-    "name": "MovimientoJugador",
+    "name": "JugadorMovimientoController",
     "maps": [
         {
-            "name": "Jugador",
-            "id": "5e73cdf7-3e1e-4059-a0f5-d170c1958a3d",
+            "name": "Player",
+            "id": "bad37fa8-c67e-4b2a-9381-53d2b3a92335",
             "actions": [
                 {
-                    "name": "mover",
+                    "name": "New action",
                     "type": "Value",
-                    "id": "1a19a6cf-bfce-4132-9023-cb580893b829",
+                    "id": "b09affe2-b647-4312-bc3c-068ec49628f4",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
-                },
-                {
-                    "name": "saltar",
-                    "type": "Button",
-                    "id": "0708f8e1-476e-48cd-93f5-c5193e45d22f",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
                 }
             ],
             "bindings": [
                 {
                     "name": "2D Vector",
-                    "id": "0d6358ea-a2cd-49f6-ac3b-97bc3640e7a9",
+                    "id": "5621d241-e826-4db1-89ba-adacc7a1eeef",
                     "path": "2DVector",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "mover",
+                    "action": "New action",
                     "isComposite": true,
                     "isPartOfComposite": false
                 },
                 {
                     "name": "up",
-                    "id": "de0c8b03-5a73-4929-b154-2d91dff4623f",
+                    "id": "4ddc03ee-3b34-4e45-a4df-2c48a8b63a7e",
                     "path": "<Keyboard>/w",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "mover",
+                    "action": "New action",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
                 {
                     "name": "down",
-                    "id": "3b84c0aa-4210-47d6-b856-53ac1cd05806",
+                    "id": "9e8f75fa-9118-4bd1-8fdb-18bae12428b3",
                     "path": "<Keyboard>/s",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "mover",
+                    "action": "New action",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
                 {
                     "name": "left",
-                    "id": "194d51f7-9445-47a3-b6ec-a3e18080906f",
+                    "id": "d9022b69-aedd-42f2-83bb-9463e508f23f",
                     "path": "<Keyboard>/a",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "mover",
+                    "action": "New action",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
                 {
                     "name": "right",
-                    "id": "c00679ec-6d90-4e6d-8b7d-8b5009839670",
+                    "id": "bd58127c-5462-4c7c-83c4-6a07f1c93f9e",
                     "path": "<Keyboard>/d",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "mover",
+                    "action": "New action",
                     "isComposite": false,
                     "isPartOfComposite": true
-                },
-                {
-                    "name": "",
-                    "id": "9c4672d4-f85e-44fa-baf4-79a364d0a0bf",
-                    "path": "<Keyboard>/space",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "saltar",
-                    "isComposite": false,
-                    "isPartOfComposite": false
                 }
             ]
         }

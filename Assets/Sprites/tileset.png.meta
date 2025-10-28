@@ -1,12 +1,5 @@
 fileFormatVersion: 2
-guid: 1ff621bafaff38f4ebcc1baf669ab883
-AssetOrigin:
-  serializedVersion: 1
-  productId: 238393
-  packageName: Super Grotto Escape Pack
-  packageVersion: 1.0
-  assetPath: Assets/Super Grotto Escape/Environment/tileset/tileset.png
-  uploadId: 545561
+guid: 8d8cd53431f8503489024cbe6e8ec278
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
