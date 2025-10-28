@@ -31,11 +31,11 @@ public class Enemy : MonoBehaviour
 
             if (direction.x < 0)
             {
-                sr.flipX = true;
+                sr.flipX = false;
             }
             if (direction.x > 0)
             {
-                sr.flipX = false;
+                sr.flipX = true;
             }
 
             movement = new Vector2(direction.x, 0);

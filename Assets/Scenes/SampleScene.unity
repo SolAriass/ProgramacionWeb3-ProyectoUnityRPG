@@ -131,6 +131,26 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2256296644204766151, guid: 364e3bbce5c825043aba33f2427bd396, type: 3}
+      propertyPath: m_Size.x
+      value: 0.21048176
+      objectReference: {fileID: 0}
+    - target: {fileID: 2256296644204766151, guid: 364e3bbce5c825043aba33f2427bd396, type: 3}
+      propertyPath: m_Size.y
+      value: 0.28373498
+      objectReference: {fileID: 0}
+    - target: {fileID: 2256296644204766151, guid: 364e3bbce5c825043aba33f2427bd396, type: 3}
+      propertyPath: m_Offset.x
+      value: -0.0072408766
+      objectReference: {fileID: 0}
+    - target: {fileID: 2256296644204766151, guid: 364e3bbce5c825043aba33f2427bd396, type: 3}
+      propertyPath: m_Offset.y
+      value: -0.040481914
+      objectReference: {fileID: 0}
+    - target: {fileID: 2256296644204766151, guid: 364e3bbce5c825043aba33f2427bd396, type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2626108168978557937, guid: 364e3bbce5c825043aba33f2427bd396, type: 3}
       propertyPath: m_LocalPosition.x
       value: 115.4
@@ -796,7 +816,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SeguirJugador
   objetivo: {fileID: 789624776}
-  suavizado: 10
+  suavizado: 5
 --- !u!1001 &570226030
 PrefabInstance:
   m_ObjectHideFlags: 0

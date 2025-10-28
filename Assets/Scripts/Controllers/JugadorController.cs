@@ -55,6 +55,7 @@ public class MovimientoJugador : MonoBehaviour
         RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down, longitudRaycast, Suelo);
         enSuelo = hit.collider != null;
 
+
         // Solo resetear saltos si está en el suelo Y cayendo (o parado)
         if (enSuelo && rb.linearVelocity.y <= 0.1f)
         {
@@ -96,9 +97,10 @@ public class MovimientoJugador : MonoBehaviour
     {
         if (!recibiendoDanio)
         {
+            Debug.Log("Jugador recibe daño!");
             recibiendoDanio = true;
 
-            Vector2 rebote = new Vector2(transform.position.x - direccion.x, 1).normalized;
+            Vector2 rebote = new Vector2(-direccion.x, 1).normalized;
             rb.AddForce(rebote * fuerzaRebote, ForceMode2D.Impulse);
         }
     }
