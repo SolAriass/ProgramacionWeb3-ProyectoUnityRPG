@@ -5,12 +5,13 @@ public class MovimientoJugador : MonoBehaviour
 {
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     public float fuerzaSalto = 30f;
-    public float fuerzaRebote = 15f;
+    public float fuerzaRebote = 20f;
     public float longitudRaycast = 0.43f;
     public LayerMask Suelo;
 
     private bool enSuelo;
     private bool recibiendoDanio;
+    
     public Rigidbody2D rb;
 
     public float velocidad = 100f;
@@ -64,6 +65,7 @@ public class MovimientoJugador : MonoBehaviour
 
         animator.SetBool("ensuelo", enSuelo);
         animator.SetBool("recibeDanio", recibiendoDanio);
+        
     }
 
     void FixedUpdate()
@@ -100,7 +102,7 @@ public class MovimientoJugador : MonoBehaviour
             Debug.Log("Jugador recibe daño!");
             recibiendoDanio = true;
 
-            Vector2 rebote = new Vector2(-direccion.x, 1).normalized;
+            Vector2 rebote = new Vector2(transform.position.x - direccion.x, 1).normalized;
             rb.AddForce(rebote * fuerzaRebote, ForceMode2D.Impulse);
         }
     }

@@ -11,7 +11,7 @@ public class Disparo : MonoBehaviour
     [SerializeField] float bulletLife = 10f;
 
     [SerializeField] SpriteRenderer playerSprite;  // para saber si está mirando a la izquierda
-
+    private bool atacando;
     public Animator animator; // Animator del jugador
 
 
@@ -25,11 +25,14 @@ public class Disparo : MonoBehaviour
         {
             Fire();
         }
+
+        animator.SetBool("Atacando", atacando);
     }
 
     void Fire()
     {
         if (bulletPrefab == null || gunPoint == null) return;
+        Atacando();
 
         // ¿Mirando a la izquierda?
         bool facingLeft = (playerSprite != null && playerSprite.flipX);
@@ -59,8 +62,20 @@ public class Disparo : MonoBehaviour
         bullet.transform.localScale = s;
 
         Destroy(bullet, bulletLife);
+
+      
+
     }
 
+    public void Atacando()
+    {
+        atacando = true;
+    }
+
+    public void DesactivaAtaque()
+    {
+        atacando = false;
+    }
 
 }
 

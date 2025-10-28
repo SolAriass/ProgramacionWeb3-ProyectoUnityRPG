@@ -8,7 +8,7 @@ public class Enemy : MonoBehaviour
 
     private Rigidbody2D rb;
     private Vector2 movement;
-    private bool enMovimiento;
+   // private bool enMovimiento;
     private Animator animator;
     SpriteRenderer sr;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -40,17 +40,16 @@ public class Enemy : MonoBehaviour
 
             movement = new Vector2(direction.x, 0);
 
-            enMovimiento = true;
-        }
+           // enMovimiento = true;
+        } /* 
+
         else 
         {
             movement = Vector2.zero;
             enMovimiento = false;
         }
-
+*/
         rb.MovePosition(rb.position + movement * speed * Time.deltaTime);
-
-        animator.SetBool("enMovimiento", enMovimiento);
     }
 
 
