@@ -1,4 +1,4 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class Disparo : MonoBehaviour
@@ -8,16 +8,19 @@ public class Disparo : MonoBehaviour
     [SerializeField] GameObject bulletPrefab;      // Prefab de la bala
     [SerializeField] Transform gunPoint;           // Punto de salida
     [SerializeField] float bulletSpeed = 15f;
-    [SerializeField] float bulletLife = 5f;
+    [SerializeField] float bulletLife = 10f;
 
-    [SerializeField] SpriteRenderer playerSprite;  // para saber si está mirando a la izquierda
+    [SerializeField] SpriteRenderer playerSprite;  // para saber si estÃ¡ mirando a la izquierda
+
+    public Animator animator; // Animator del jugador
+
 
     void OnEnable() => shoot.action.Enable();
     void OnDisable() => shoot.action.Disable();
 
     void Update()
     {
-        // Dispara si se presiona el botón configurado
+        // Dispara si se presiona el botÃ³n configurado
         if (shoot.action.triggered)
         {
             Fire();
@@ -28,24 +31,29 @@ public class Disparo : MonoBehaviour
     {
         if (bulletPrefab == null || gunPoint == null) return;
 
-        // ¿Mirando a la izquierda?
+        // Â¿Mirando a la izquierda?
         bool facingLeft = (playerSprite != null && playerSprite.flipX);
         if (playerSprite == null) facingLeft = transform.lossyScale.x < 0f;
 
-        // Asegurar que el GunPoint esté al lado correcto
-        var lp = gunPoint.localPosition;
-        lp.x = Mathf.Abs(lp.x) * (facingLeft ? -1f : 1f);
-        gunPoint.localPosition = lp;
+        // Offset horizontal usando el gunPoint como referencia local,
+        // pero SIN moverlo: convertimos a mundo con TransformPoint
+        float baseOffsetX = Mathf.Abs(gunPoint.localPosition.x);
+        if (baseOffsetX < 0.01f) baseOffsetX = 0.25f; // fallback si estaba en 0
+        float localX = facingLeft ? -baseOffsetX : baseOffsetX;
+        Vector3 localSpawn = new Vector3(localX, gunPoint.localPosition.y, 0f);
 
-        // Instanciar bala en el gunPoint, levemente adelantada
+        // PosiciÃ³n final de spawn en MUNDO
+        Vector3 spawnPos = transform.TransformPoint(localSpawn);
+
+        // DirecciÃ³n
         Vector2 dir = facingLeft ? Vector2.left : Vector2.right;
-        GameObject bullet = Instantiate(bulletPrefab, gunPoint.position + (Vector3)(dir * 0.05f), Quaternion.identity);
 
-        // Dar velocidad (API 6.x)
+        // Instanciar y empujar
+        GameObject bullet = Instantiate(bulletPrefab, spawnPos, Quaternion.identity);
         Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
         if (rb != null) rb.linearVelocity = dir * bulletSpeed;
 
-        // Ajuste visual opcional (que la bala “mire” hacia el lado correcto)
+        // Ajuste visual opcional (flip de la bala)
         var s = bullet.transform.localScale;
         s.x = Mathf.Abs(s.x) * (facingLeft ? -1f : 1f);
         bullet.transform.localScale = s;
