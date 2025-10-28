@@ -1,0 +1,79 @@
+{
+    "version": 1,
+    "name": "MovimientoJugador",
+    "maps": [
+        {
+            "name": "Jugador",
+            "id": "5e73cdf7-3e1e-4059-a0f5-d170c1958a3d",
+            "actions": [
+                {
+                    "name": "mover",
+                    "type": "Value",
+                    "id": "1a19a6cf-bfce-4132-9023-cb580893b829",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "2D Vector",
+                    "id": "0d6358ea-a2cd-49f6-ac3b-97bc3640e7a9",
+                    "path": "2DVector",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "mover",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "up",
+                    "id": "de0c8b03-5a73-4929-b154-2d91dff4623f",
+                    "path": "<Keyboard>/w",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "mover",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "down",
+                    "id": "3b84c0aa-4210-47d6-b856-53ac1cd05806",
+                    "path": "<Keyboard>/s",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "mover",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "left",
+                    "id": "194d51f7-9445-47a3-b6ec-a3e18080906f",
+                    "path": "<Keyboard>/a",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "mover",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "right",
+                    "id": "c00679ec-6d90-4e6d-8b7d-8b5009839670",
+                    "path": "<Keyboard>/d",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "mover",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}

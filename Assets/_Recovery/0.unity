@@ -168,21 +168,9 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3915942801348953501, guid: 364e3bbce5c825043aba33f2427bd396, type: 3}
-      propertyPath: rb
-      value: 
-      objectReference: {fileID: 1196159970}
-    - target: {fileID: 3915942801348953501, guid: 364e3bbce5c825043aba33f2427bd396, type: 3}
-      propertyPath: speed
-      value: 30
-      objectReference: {fileID: 0}
-    - target: {fileID: 3915942801348953501, guid: 364e3bbce5c825043aba33f2427bd396, type: 3}
       propertyPath: player
       value: 
-      objectReference: {fileID: 789624776}
-    - target: {fileID: 7411345778557522746, guid: 364e3bbce5c825043aba33f2427bd396, type: 3}
-      propertyPath: m_FlipX
-      value: 0
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 90713947}
     - target: {fileID: 8150348962841410931, guid: 364e3bbce5c825043aba33f2427bd396, type: 3}
       propertyPath: m_Name
       value: Enemigo Slime (1)
@@ -370,7 +358,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 90713943}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3ea2fef53c939da4c93a2b1edd324969, type: 3}
   m_Name: 
@@ -743,7 +731,7 @@ Transform:
   m_GameObject: {fileID: 519420028}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 138, y: 88, z: -10}
+  m_LocalPosition: {x: 106, y: 88, z: -10}
   m_LocalScale: {x: 10, y: 10, z: 10}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -1068,7 +1056,7 @@ Transform:
   m_GameObject: {fileID: 619394800}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 599, y: 92.5, z: 0}
+  m_LocalPosition: {x: 129, y: 92.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1238,14 +1226,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad9dcb097ea0f1947a50e84c57cf8c96, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MovimientoJugador
-  fuerzaSalto: 30
-  fuerzaRebote: 20
-  longitudRaycast: 0.7
+  fuerzaSalto: 10
+  fuerzaRebote: 7
+  longitudRaycast: 0.43
   Suelo:
     serializedVersion: 2
     m_Bits: 64
   rb: {fileID: 789624774}
-  velocidad: 50
+  velocidad: 5
   animator: {fileID: 789624771}
 --- !u!61 &789624773
 BoxCollider2D:
@@ -1387,7 +1375,7 @@ Transform:
   m_GameObject: {fileID: 789624770}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 77, y: 77, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1656,7 +1644,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 809086591}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
   m_Name: 
@@ -1686,7 +1674,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 809086591}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: be0102fb8e257384b848f80316bd9709, type: 3}
   m_Name: 
@@ -1808,7 +1796,7 @@ Transform:
   m_GameObject: {fileID: 916821295}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 148, y: 139, z: 0}
+  m_LocalPosition: {x: 162, y: 71.5, z: 0}
   m_LocalScale: {x: 191.93285, y: 138.32997, z: 138.32997}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1960,7 +1948,7 @@ Transform:
   m_GameObject: {fileID: 1116031999}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: 0.7071068, w: 0.7071068}
-  m_LocalPosition: {x: 449, y: 150, z: 0}
+  m_LocalPosition: {x: 526, y: 151.5, z: 0}
   m_LocalScale: {x: 320.26556, y: 12.749929, z: 61.21496}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2035,11 +2023,6 @@ PrefabInstance:
 --- !u!4 &1196159965 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2626108168978557937, guid: 364e3bbce5c825043aba33f2427bd396, type: 3}
-  m_PrefabInstance: {fileID: 90613786}
-  m_PrefabAsset: {fileID: 0}
---- !u!50 &1196159970 stripped
-Rigidbody2D:
-  m_CorrespondingSourceObject: {fileID: 6675303223734952172, guid: 364e3bbce5c825043aba33f2427bd396, type: 3}
   m_PrefabInstance: {fileID: 90613786}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1354642611
@@ -2188,8 +2171,8 @@ Transform:
   m_GameObject: {fileID: 1354642611}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: 0.7071068, w: 0.7071068}
-  m_LocalPosition: {x: -151, y: 132.3, z: 0}
-  m_LocalScale: {x: 274.10422, y: 15.456047, z: 18.551893}
+  m_LocalPosition: {x: -254.70001, y: 132.3, z: 0}
+  m_LocalScale: {x: 274.10422, y: 7.188859, z: 18.551893}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1988333031}
@@ -2225,7 +2208,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -129, y: -92.5, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.013, y: 0.013, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 519420032}
