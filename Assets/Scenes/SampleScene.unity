@@ -275,7 +275,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2256296644204766151, guid: 364e3bbce5c825043aba33f2427bd396, type: 3}
       propertyPath: m_Size.x
-      value: 0.18601814
+      value: 0.179589
       objectReference: {fileID: 0}
     - target: {fileID: 2256296644204766151, guid: 364e3bbce5c825043aba33f2427bd396, type: 3}
       propertyPath: m_Size.y
@@ -283,7 +283,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2256296644204766151, guid: 364e3bbce5c825043aba33f2427bd396, type: 3}
       propertyPath: m_Offset.x
-      value: -0.00826022
+      value: -0.011474792
       objectReference: {fileID: 0}
     - target: {fileID: 2256296644204766151, guid: 364e3bbce5c825043aba33f2427bd396, type: 3}
       propertyPath: m_Offset.y
@@ -292,6 +292,22 @@ PrefabInstance:
     - target: {fileID: 2256296644204766151, guid: 364e3bbce5c825043aba33f2427bd396, type: 3}
       propertyPath: m_IsTrigger
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2256296644204766151, guid: 364e3bbce5c825043aba33f2427bd396, type: 3}
+      propertyPath: m_SpriteTilingProperty.newSize.x
+      value: 0.32
+      objectReference: {fileID: 0}
+    - target: {fileID: 2256296644204766151, guid: 364e3bbce5c825043aba33f2427bd396, type: 3}
+      propertyPath: m_SpriteTilingProperty.newSize.y
+      value: 0.32
+      objectReference: {fileID: 0}
+    - target: {fileID: 2256296644204766151, guid: 364e3bbce5c825043aba33f2427bd396, type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.x
+      value: 0.32
+      objectReference: {fileID: 0}
+    - target: {fileID: 2256296644204766151, guid: 364e3bbce5c825043aba33f2427bd396, type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.y
+      value: 0.32
       objectReference: {fileID: 0}
     - target: {fileID: 2626108168978557937, guid: 364e3bbce5c825043aba33f2427bd396, type: 3}
       propertyPath: m_LocalScale.x
@@ -307,7 +323,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2626108168978557937, guid: 364e3bbce5c825043aba33f2427bd396, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -18.8
+      value: -18.9
       objectReference: {fileID: 0}
     - target: {fileID: 2626108168978557937, guid: 364e3bbce5c825043aba33f2427bd396, type: 3}
       propertyPath: m_LocalPosition.z
@@ -368,6 +384,10 @@ PrefabInstance:
     - target: {fileID: 6675303223734952172, guid: 364e3bbce5c825043aba33f2427bd396, type: 3}
       propertyPath: m_Constraints
       value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 6909502041687151143, guid: 364e3bbce5c825043aba33f2427bd396, type: 3}
+      propertyPath: m_AnimatePhysics
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7411345778557522746, guid: 364e3bbce5c825043aba33f2427bd396, type: 3}
       propertyPath: m_FlipX
@@ -963,13 +983,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MovimientoJugador
   fuerzaSalto: 70
-  fuerzaRebote: 20
+  fuerzaRebote: 100
   longitudRaycast: 0.7
   Suelo:
     serializedVersion: 2
     m_Bits: 64
   rb: {fileID: 789624774}
-  velocidad: 50
+  velocidad: 70
   animator: {fileID: 789624771}
 --- !u!61 &789624773
 BoxCollider2D:
@@ -1220,7 +1240,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0.113, y: 0.136, z: 0}
-  m_LocalScale: {x: 1.0048804, y: 1.0048804, z: 0}
+  m_LocalScale: {x: 1.0048804, y: 2.00488, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 789624776}

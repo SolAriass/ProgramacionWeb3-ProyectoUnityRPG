@@ -12,7 +12,7 @@ public class MovimientoEnemigo : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        rb.bodyType = RigidbodyType2D.Kinematic; // Evita empuje
+        rb.bodyType = RigidbodyType2D.Dynamic; // Evita empuje
     }
 
     void Update()
