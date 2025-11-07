@@ -1,12 +1,14 @@
 using UnityEngine;
 
-public class Enemy : MonoBehaviour
+public class EnemyController : MonoBehaviour
 {
     public Transform player;
     public float detectionRadius = 5.0f;
-    public float speed = 2.0f;
+    public float speed = 10.0f;
+    public int health = 30; // vida inicial del enemigo
+    public int pointsOnDeath = 10; // puntos al morir
 
-    private Rigidbody2D rb;
+    public Rigidbody2D rb;
     private Vector2 movement;
    // private bool enMovimiento;
     private Animator animator;
@@ -52,6 +54,24 @@ public class Enemy : MonoBehaviour
         rb.MovePosition(rb.position + movement * speed * Time.deltaTime);
     }
 
+    public void TakeDamage(int damage)
+    {
+        health -= damage;
+        Debug.Log($"{gameObject.name} recibió {damage} de daño. Vida: {health}");
+
+        if (health <= 0)
+        {
+            Die();
+        }
+    }
+
+    void Die()
+    {
+        Debug.Log($"{gameObject.name} murió.");
+        // acá podrías sumar puntos si tenés un GameManager
+        Destroy(gameObject);
+    }
+
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
@@ -59,7 +79,7 @@ public class Enemy : MonoBehaviour
         {
             Vector2 direccionDanio = new Vector2(transform.position.x, 0);
             
-            collision.gameObject.GetComponent<MovimientoJugador>().RecibeDanio(direccionDanio, 1);
+            collision.gameObject.GetComponent<JugadorController>().RecibeDanio(direccionDanio, 1);
         }
 
     }

@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 3277257530206336123}
   - component: {fileID: -2932312577394074804}
   m_Layer: 0
-  m_Name: Bala mejorada
+  m_Name: Bala
   m_TagString: Bala
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
