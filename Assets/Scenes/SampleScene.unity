@@ -219,6 +219,10 @@ PrefabInstance:
       propertyPath: m_FlipX
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7411345778557522746, guid: 364e3bbce5c825043aba33f2427bd396, type: 3}
+      propertyPath: m_SortingOrder
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 8150348962841410931, guid: 364e3bbce5c825043aba33f2427bd396, type: 3}
       propertyPath: m_Name
       value: Enemigo Slime (3)
@@ -392,6 +396,10 @@ PrefabInstance:
     - target: {fileID: 7411345778557522746, guid: 364e3bbce5c825043aba33f2427bd396, type: 3}
       propertyPath: m_FlipX
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7411345778557522746, guid: 364e3bbce5c825043aba33f2427bd396, type: 3}
+      propertyPath: m_SortingOrder
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 8150348962841410931, guid: 364e3bbce5c825043aba33f2427bd396, type: 3}
       propertyPath: m_Name
@@ -1131,7 +1139,7 @@ Transform:
   m_GameObject: {fileID: 789624770}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -26.4, y: -33.2, z: 0}
+  m_LocalPosition: {x: 71.9, y: -33.8, z: 0}
   m_LocalScale: {x: 77, y: 77, z: 0}
   m_ConstrainProportionsScale: 1
   m_Children:
@@ -1195,7 +1203,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Disparo
   shoot: {fileID: 1120369429361536294, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
-  bulletPrefab: {fileID: 5587180086908847066, guid: 3dd96e91f605e49448040a529bf77dd4, type: 3}
+  bulletPrefab: {fileID: 5587180086908847066, guid: 89c59eca6c6695a4ea9ba4aa60e11df1, type: 3}
   gunPoint: {fileID: 861002898}
   bulletSpeed: 15
   bulletLife: 5
@@ -1854,6 +1862,10 @@ PrefabInstance:
       propertyPath: m_FlipX
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7411345778557522746, guid: 364e3bbce5c825043aba33f2427bd396, type: 3}
+      propertyPath: m_SortingOrder
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 8150348962841410931, guid: 364e3bbce5c825043aba33f2427bd396, type: 3}
       propertyPath: m_Name
       value: Enemigo Slime (2)
@@ -2215,9 +2227,67 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
+--- !u!1001 &4275772107159467275
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4676573289257490587, guid: 526837f5e3b4ab9428991294904f9fb9, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4676573289257490587, guid: 526837f5e3b4ab9428991294904f9fb9, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4676573289257490587, guid: 526837f5e3b4ab9428991294904f9fb9, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4676573289257490587, guid: 526837f5e3b4ab9428991294904f9fb9, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4676573289257490587, guid: 526837f5e3b4ab9428991294904f9fb9, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4676573289257490587, guid: 526837f5e3b4ab9428991294904f9fb9, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4676573289257490587, guid: 526837f5e3b4ab9428991294904f9fb9, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4676573289257490587, guid: 526837f5e3b4ab9428991294904f9fb9, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4676573289257490587, guid: 526837f5e3b4ab9428991294904f9fb9, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4676573289257490587, guid: 526837f5e3b4ab9428991294904f9fb9, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6472065994683521357, guid: 526837f5e3b4ab9428991294904f9fb9, type: 3}
+      propertyPath: m_Name
+      value: player-shoot1
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 526837f5e3b4ab9428991294904f9fb9, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 1988333031}
   - {fileID: 1776715519}
+  - {fileID: 4275772107159467275}
