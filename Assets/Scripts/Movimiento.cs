@@ -1,5 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
+
 
 [RequireComponent(typeof(Rigidbody2D), typeof(SpriteRenderer))]
 public class Movimiento : MonoBehaviour
@@ -15,6 +17,8 @@ public class Movimiento : MonoBehaviour
     [Header("Input System")]
     [SerializeField] InputActionReference move;  // Player/Move (Vector2)
     [SerializeField] InputActionReference jump;  // Player/Jump (Button)
+    [SerializeField] InputActionReference pausa; // Player/Pausa (Button)
+
 
     [Header("Ground Check")]
     [SerializeField] Transform groundCheck;
@@ -34,8 +38,8 @@ public class Movimiento : MonoBehaviour
         sr = GetComponent<SpriteRenderer>();
     }
 
-    void OnEnable() { move.action.Enable(); jump.action.Enable(); }
-    void OnDisable() { move.action.Disable(); jump.action.Disable(); }
+    void OnEnable() { move.action.Enable(); jump.action.Enable(); pausa.action.Enable(); }
+    void OnDisable() { move.action.Disable(); jump.action.Disable(); pausa.action.Disable(); }
 
     void Update()
     {
@@ -51,6 +55,11 @@ public class Movimiento : MonoBehaviour
             float v = Mathf.Sqrt(2f * g * desiredJumpHeight);
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, v);
             jumpUsed = true;   // bloquea nuevos saltos en el aire
+        }
+
+        if (pausa.action.triggered)
+        {
+            SceneManager.LoadScene("Inicio");
         }
     }
 
