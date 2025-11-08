@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.LowLevel;
+using UnityEngine.SceneManagement;
 
 public class MovimientoJugador : MonoBehaviour
 {
@@ -66,6 +68,9 @@ public class MovimientoJugador : MonoBehaviour
         animator.SetBool("ensuelo", enSuelo);
         animator.SetBool("recibeDanio", recibiendoDanio);
         
+    
+
+
     }
 
     void FixedUpdate()
@@ -94,6 +99,8 @@ public class MovimientoJugador : MonoBehaviour
             saltosRestantes--;
         }
     }
+
+
 
     public void RecibeDanio(Vector2 direccion, int cantDanio)
     {
