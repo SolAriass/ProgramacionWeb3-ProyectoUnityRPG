@@ -6,7 +6,7 @@ public class NewMonoBehaviourScript : MonoBehaviour
   
     public void Jugar()
     {
-        SceneManager.LoadScene("Nivel-1");
+        SceneManager.LoadScene("Escena1");
     }
 
     public void Salir()

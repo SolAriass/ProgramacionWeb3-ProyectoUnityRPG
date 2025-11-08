@@ -3,7 +3,7 @@ using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.LowLevel;
 using UnityEngine.SceneManagement;
 
-public class MovimientoJugador : MonoBehaviour
+public class JugadorController : MonoBehaviour
 {
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     public float fuerzaSalto = 30f;
@@ -26,6 +26,8 @@ public class MovimientoJugador : MonoBehaviour
     // Para control de saltos (doble salto)
     private int saltosRestantes = 2;
     private const int MAX_SALTOS = 2;
+
+    public int vida = 100;
 
 
     void Start()
@@ -124,6 +126,20 @@ public class MovimientoJugador : MonoBehaviour
     {
         Gizmos.color = Color.red;
         Gizmos.DrawLine(transform.position, transform.position + Vector3.down * longitudRaycast);
+    }
+
+    public void RecibirDaño(int cantidad)
+    {
+        vida -= cantidad;
+        Debug.Log("Vida del jugador: " + vida);
+
+        // Activar animación de recibir golpe
+        animator.SetTrigger("Hit");
+
+        if (vida <= 0)
+        {
+            Debug.Log("Jugador muerto!");
+        }
     }
 }
 

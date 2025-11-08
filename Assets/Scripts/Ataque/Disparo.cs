@@ -63,7 +63,7 @@ public class Disparo : MonoBehaviour
 
         Destroy(bullet, bulletLife);
 
-      
+
 
     }
 

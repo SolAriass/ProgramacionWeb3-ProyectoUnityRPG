@@ -9,7 +9,7 @@ public class Bala : MonoBehaviour
         // si la bala toca un objeto con tag Enemy
         if (other.CompareTag("Enemigo"))
         {
-            Enemigo enemigo = other.GetComponent<Enemigo>();
+            EnemyController enemigo = other.GetComponent<EnemyController>();
             if (enemigo != null)
             {
                 enemigo.TakeDamage(damage);

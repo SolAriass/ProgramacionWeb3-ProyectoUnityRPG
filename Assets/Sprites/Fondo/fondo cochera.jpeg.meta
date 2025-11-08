@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 934129579e23fc044a34b3d3ea58896d
+guid: ef3157a2866e8964ab7914e25d951c33
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 6988929979606299478
-    second: fondo-garage_0
+      213: -2981487886700227924
+    second: fondo cochera_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -96,17 +96,30 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: fondo-garage_0
+      name: fondo cochera_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 850
-        height: 478
+        width: 1600
+        height: 899
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 653f28a99caadf060800000000000000
-      internalID: 6988929979606299478
+      spriteID: ca25a1b4090af96d0800000000000000
+      internalID: -2981487886700227924
       vertices: []
       indices: 
       edges: []
@@ -135,7 +148,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      fondo-garage_0: 6988929979606299478
+      fondo cochera_0: -2981487886700227924
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
