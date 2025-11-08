@@ -3,7 +3,7 @@ using UnityEngine;
 public class EnemyController : MonoBehaviour
 {
     public Transform player;
-    public float detectionRadius = 5.0f;
+    public float detectionRadius = 9.0f;
     public float speed = 10.0f;
     public int health = 30; // vida inicial del enemigo
     public int pointsOnDeath = 10; // puntos al morir
@@ -43,14 +43,14 @@ public class EnemyController : MonoBehaviour
             movement = new Vector2(direction.x, 0);
 
            // enMovimiento = true;
-        } /* 
+        } 
 
         else 
         {
             movement = Vector2.zero;
-            enMovimiento = false;
+            //enMovimiento = false;
         }
-*/
+
         rb.MovePosition(rb.position + movement * speed * Time.deltaTime);
     }
 
