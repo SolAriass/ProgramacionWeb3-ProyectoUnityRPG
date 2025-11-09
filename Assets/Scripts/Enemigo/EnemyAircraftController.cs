@@ -3,9 +3,9 @@ using UnityEngine;
 public class EnemyAircraftController : MonoBehaviour
 {
     public Transform player;
-    public float detectionRadius = 9.0f;
-    public float speedX = 10f;      // horizontal
-    public float speedY = 10f;      // vertical
+    public float detectionRadius = 90.0f;
+    public float speedX = 25f;      // horizontal
+    public float speedY = 15f;      // vertical
     
     public int health = 30; // vida inicial del enemigo
     public int pointsOnDeath = 10; // puntos al morir

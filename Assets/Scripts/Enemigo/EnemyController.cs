@@ -8,9 +8,10 @@ public class EnemyController : MonoBehaviour
     public int health = 30; // vida inicial del enemigo
     public int pointsOnDeath = 10; // puntos al morir
 
+
     public Rigidbody2D rb;
     private Vector2 movement;
-   // private bool enMovimiento;
+    // private bool enMovimiento;
     private Animator animator;
     SpriteRenderer sr;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -42,16 +43,16 @@ public class EnemyController : MonoBehaviour
 
             movement = new Vector2(direction.x, 0);
 
-           // enMovimiento = true;
-        } 
+            // enMovimiento = true;
+        }
 
-        else 
+        else
         {
             movement = Vector2.zero;
             //enMovimiento = false;
         }
 
-        rb.MovePosition(rb.position + movement * speed * Time.deltaTime);
+
     }
 
     public void TakeDamage(int damage)
@@ -65,7 +66,12 @@ public class EnemyController : MonoBehaviour
         }
     }
 
-    void Die()
+
+    void FixedUpdate()
+    {
+        rb.MovePosition(rb.position + movement * speed * Time.deltaTime);
+    }
+        void Die()
     {
         Debug.Log($"{gameObject.name} murió.");
         // acá podrías sumar puntos si tenés un GameManager
