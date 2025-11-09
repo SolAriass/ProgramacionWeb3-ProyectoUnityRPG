@@ -1137,7 +1137,7 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
@@ -1226,7 +1226,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 2
+  m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: 7f4f46cf00ef7584fa3e92e86d13f975, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -2157,7 +2157,6 @@ GameObject:
   - component: {fileID: 1216170151}
   - component: {fileID: 1216170150}
   - component: {fileID: 1216170149}
-  - component: {fileID: 1216170157}
   m_Layer: 8
   m_Name: Jugador2
   m_TagString: Player
@@ -2174,7 +2173,7 @@ Transform:
   m_GameObject: {fileID: 1216170146}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 136, y: -32.7, z: 0}
+  m_LocalPosition: {x: 30.5, y: -31.9, z: 0}
   m_LocalScale: {x: 77, y: 77, z: 0}
   m_ConstrainProportionsScale: 1
   m_Children:
@@ -2279,12 +2278,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MovimientoJugador
   fuerzaSalto: 70
-  fuerzaRebote: 20
+  fuerzaRebote: 70
   longitudRaycast: 0.7
   Suelo:
     serializedVersion: 2
     m_Bits: 64
-  tiempoRebote: 1
   rb: {fileID: 1216170155}
   velocidad: 50
   animator: {fileID: 1216170152}
@@ -2408,7 +2406,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 2
   m_Sprite: {fileID: -6330013083485144434, guid: 295b90d885fa57c40bab6cbdeb70e4ac, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -2420,27 +2418,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &1216170157
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1216170146}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2560c7cfe90fc5d479d3f520a418c191, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::MovimientoJugador
-  fuerzaSalto: 10
-  fuerzaRebote: 6
-  longitudRaycast: 1
-  capaSuelo:
-    serializedVersion: 2
-    m_Bits: 64
-  rb: {fileID: 1216170155}
-  velocidad: 5
-  animator: {fileID: 1216170152}
 --- !u!1 &1253176140
 GameObject:
   m_ObjectHideFlags: 0
@@ -2547,11 +2524,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2626108168978557937, guid: 364e3bbce5c825043aba33f2427bd396, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 75.4
+      value: 114
       objectReference: {fileID: 0}
     - target: {fileID: 2626108168978557937, guid: 364e3bbce5c825043aba33f2427bd396, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -19.2
+      value: -18.8
       objectReference: {fileID: 0}
     - target: {fileID: 2626108168978557937, guid: 364e3bbce5c825043aba33f2427bd396, type: 3}
       propertyPath: m_LocalPosition.z
@@ -2925,11 +2902,6 @@ MonoBehaviour:
   speedY: 15
   health: 30
   pointsOnDeath: 10
-  capaObstaculos:
-    serializedVersion: 2
-    m_Bits: 64
-  distanciaFrontal: 0.6
-  distanciaVertical: 0.5
   rb: {fileID: 1609121844}
 --- !u!1 &1686460458
 GameObject:
