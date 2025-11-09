@@ -138,6 +138,11 @@ public class JugadorController : MonoBehaviour
 
         if (vida <= 0)
         {
+            if(GameManager.Instance != null)
+            {
+                GameManager.Instance.GameOver();
+            }
+
             Debug.Log("Jugador muerto!");
         }
     }
