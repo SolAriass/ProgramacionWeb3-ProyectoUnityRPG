@@ -111,6 +111,12 @@ public class JugadorController : MonoBehaviour
             Debug.Log("Jugador recibe daño!");
             recibiendoDanio = true;
 
+            if(recibiendoDanio)
+            {
+                RecibirDaño(cantDanio);
+            } 
+
+
             Vector2 rebote = new Vector2(transform.position.x - direccion.x, 1).normalized;
             rb.AddForce(rebote * fuerzaRebote, ForceMode2D.Impulse);
         }
