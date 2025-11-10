@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class JugadorController : MonoBehaviour
 {
@@ -10,7 +11,8 @@ public class JugadorController : MonoBehaviour
 
     private bool enSuelo;
     private bool recibiendoDanio;
-    
+    public bool EstaMuerto { get; private set; } = false;
+
     public Rigidbody2D rb;
 
     public float velocidad = 100f;
@@ -159,11 +161,16 @@ public class JugadorController : MonoBehaviour
 
     void OnMover(InputValue value)
     {
+        if (EstaMuerto)
+            return;
         mover = value.Get<Vector2>();
     }
 
     void OnSaltar(InputValue value)
     {
+        if (EstaMuerto)
+            return;
+
         if (!value.isPressed)
             return;
 
@@ -175,17 +182,23 @@ public class JugadorController : MonoBehaviour
         }
     }
 
-    public void RecibeDanio(Vector2 direccion, int cantDanio)
-    {
-        if (!recibiendoDanio)
-        {
-            Debug.Log("Jugador recibe daño!");
-            recibiendoDanio = true;
+   public void RecibeDanio(Vector2 direccion, int cantDanio)
+  {
+      if (!recibiendoDanio)
+      {
+          Debug.Log("Jugador recibe daño!");
+          recibiendoDanio = true;
 
-            Vector2 rebote = new Vector2(transform.position.x - direccion.x, 1).normalized;
-            rb.AddForce(rebote * fuerzaRebote, ForceMode2D.Impulse);
-        }
-    }
+          if(recibiendoDanio)
+          {
+              RecibirDaño(cantDanio);
+          } 
+
+
+          Vector2 rebote = new Vector2(transform.position.x - direccion.x, 1).normalized;
+          rb.AddForce(rebote * fuerzaRebote, ForceMode2D.Impulse);
+      }
+  }
 
     public void DesactivaDanio()
     {
@@ -235,10 +248,19 @@ public class JugadorController : MonoBehaviour
         vida -= cantidad;
         Debug.Log("Vida del jugador: " + vida);
 
-        animator.SetTrigger("Hit");
 
         if (vida <= 0)
         {
+            EstaMuerto = true;
+            animator.SetBool("EstaMuerto", true);
+            rb.linearVelocity = Vector2.zero;
+            mover = Vector2.zero;
+
+            if (GameManager.Instance != null)
+            {
+                GameManager.Instance.GameOver();
+            }
+
             Debug.Log("Jugador muerto!");
         }
     }

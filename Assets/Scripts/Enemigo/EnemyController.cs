@@ -79,7 +79,7 @@ public class EnemyController : MonoBehaviour
         {
             Vector2 direccionDanio = new Vector2(transform.position.x, 0);
             
-            collision.gameObject.GetComponent<JugadorController>().RecibeDanio(direccionDanio, 1);
+            collision.gameObject.GetComponent<JugadorController>().RecibeDanio(direccionDanio, 10);
         }
 
     }

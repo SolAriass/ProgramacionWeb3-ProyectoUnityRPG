@@ -9,6 +9,7 @@ public class Disparo : MonoBehaviour
     [SerializeField] Transform gunPoint;           // Punto de salida
     [SerializeField] float bulletSpeed = 15f;
     [SerializeField] float bulletLife = 10f;
+    [SerializeField] private JugadorController jugador;
 
     [SerializeField] SpriteRenderer playerSprite;  // para saber si está mirando a la izquierda
     private bool atacando;
@@ -16,19 +17,34 @@ public class Disparo : MonoBehaviour
 
 
     void OnEnable() => shoot.action.Enable();
+   
     void OnDisable() => shoot.action.Disable();
+
+    private void Start()
+    {
+        if (jugador ==null)
+        {
+            jugador = GetComponent<JugadorController>();
+        }
+    }
 
     void Update()
     {
+        if (jugador != null && jugador.EstaMuerto)
+
+            return;
+        
         // Dispara si se presiona el botón configurado
         if (shoot.action.triggered)
         {
             Fire();
+
         }
 
         animator.SetBool("Atacando", atacando);
     }
 
+    
     void Fire()
     {
         if (bulletPrefab == null || gunPoint == null) return;
