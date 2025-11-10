@@ -32,6 +32,12 @@ public class JugadorController : MonoBehaviour
 
     public int vida = 100;
 
+    [Header("Ground Check - Edge Collider")]
+    [SerializeField] private bool usarMultiplesRaycast = true;
+    [SerializeField] private float anchoDeteccion = 0.6f;
+    [SerializeField] private int numeroDeRaycasts = 5;
+    [SerializeField] private float offsetRaycast = 0.2f;
+
 
     void Start()
     {
@@ -47,6 +53,11 @@ public class JugadorController : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
 
         sr = GetComponent<SpriteRenderer>();
+
+        // ═══════════════════════════════════════════════════════════
+        // CONFIGURACIÓN AUTOMÁTICA ANTI-TRABADO
+        // ═══════════════════════════════════════════════════════════
+        ConfigurarAntiTrabado();
     }
 
     // Update is called once per frame
@@ -54,15 +65,48 @@ public class JugadorController : MonoBehaviour
     {
         if (!recibiendoDanio)
         {
+        // Intentar obtener BoxCollider2D
+        BoxCollider2D boxCollider = GetComponent<BoxCollider2D>();
+        if (boxCollider != null)
+        {
+            // ═══════════════════════════════════════════════════════════
+            // SOLUCIÓN: Edge Radius redondea las esquinas
+            // ═══════════════════════════════════════════════════════════
+            boxCollider.edgeRadius = 0.05f; // Ajustar según tu sprite (0.05 a 0.1)
+            Debug.Log("✓ BoxCollider2D configurado con Edge Radius: " + boxCollider.edgeRadius);
+        }
+        
+        // Intentar obtener CapsuleCollider2D (RECOMENDADO)
+        CapsuleCollider2D capsuleCollider = GetComponent<CapsuleCollider2D>();
+        if (capsuleCollider != null)
+        {
+            capsuleCollider.direction = CapsuleDirection2D.Vertical;
+            Debug.Log("✓ CapsuleCollider2D detectado (ideal para platformers)");
+        }
+        
+        // Si no tiene ninguno, advertir
+        if (boxCollider == null && capsuleCollider == null)
+        {
+            Debug.LogWarning("⚠ No se encontró BoxCollider2D ni CapsuleCollider2D. Agrega uno al jugador.");
+        }
+    }
+
+    void Update()
+    {
             animator.SetFloat("enMovimiento", Mathf.Abs(mover.x * velocidad));
 
             if (mover.x < 0) sr.flipX = true;
             if (mover.x > 0) sr.flipX = false;
 
+        // Detección de suelo
+        if (usarMultiplesRaycast)
+        {
+            enSuelo = DetectarSueloMultiple();
         }
         // Raycast para detectar suelo
         RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down, longitudRaycast, Suelo);
         enSuelo = hit.collider != null;
+        }
 
 
         // Solo resetear saltos si está en el suelo Y cayendo (o parado)
@@ -73,7 +117,12 @@ public class JugadorController : MonoBehaviour
 
         animator.SetBool("ensuelo", enSuelo);
         animator.SetBool("recibeDanio", recibiendoDanio);
+    }
 
+    void FixedUpdate()
+    {
+        // Mantener velocidad Y intacta
+        rb.linearVelocity = new Vector2(mover.x * velocidad, rb.linearVelocity.y);
     }
 
     void FixedUpdate()
@@ -164,6 +213,7 @@ public class JugadorController : MonoBehaviour
         vida -= cantidad;
         Debug.Log("Vida del jugador: " + vida);
 
+        animator.SetTrigger("Hit");
 
         if (vida <= 0)
         {
