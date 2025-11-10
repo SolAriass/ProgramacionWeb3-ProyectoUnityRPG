@@ -113,7 +113,7 @@ public class GameManager : MonoBehaviour
         Debug.Log("   ✅ gameOverActivo = true");
 
         // Pausar el juego (opcional)
-        Time.timeScale = 0f;
+        Time.timeScale = 1f;
         Debug.Log("   ⏸️ Time.timeScale = 0 (juego pausado)");
 
         if (gameOverPanel != null)

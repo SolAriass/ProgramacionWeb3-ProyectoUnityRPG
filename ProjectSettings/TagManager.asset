@@ -9,6 +9,8 @@ TagManager:
   - Enemigo
   - Ground
   - Lava
+  - Character
+  - JefeFinal
   layers:
   - Default
   - TransparentFX

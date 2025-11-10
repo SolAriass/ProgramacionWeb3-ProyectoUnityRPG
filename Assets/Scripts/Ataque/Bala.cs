@@ -7,7 +7,7 @@ public class Bala : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D other)
     {
         // si la bala toca un objeto con tag Enemy
-        if (other.CompareTag("Enemigo"))
+        if (other.CompareTag("Enemigo") || other.CompareTag("JefeFinal") )
         {
             EnemyController enemigoTerrestre = other.GetComponent<EnemyController>();
             EnemyAircraftController enemigoAereo = other.GetComponent<EnemyAircraftController>();

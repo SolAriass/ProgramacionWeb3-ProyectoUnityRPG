@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 
 public class EnemyController : MonoBehaviour
 {
@@ -7,6 +7,9 @@ public class EnemyController : MonoBehaviour
     public float speed = 30.0f;
     public int health = 30; // vida inicial del enemigo
     public int pointsOnDeath = 10; // puntos al morir
+    private GameObject victoriaGame;
+    private GameObject panel;
+
 
 
     public Rigidbody2D rb;
@@ -58,7 +61,7 @@ public class EnemyController : MonoBehaviour
     public void TakeDamage(int damage)
     {
         health -= damage;
-        Debug.Log($"{gameObject.name} recibi� {damage} de da�o. Vida: {health}");
+        Debug.Log($"{gameObject.name} recibió {damage} de daño. Vida: {health}");
 
         if (health <= 0)
         {
@@ -71,10 +74,48 @@ public class EnemyController : MonoBehaviour
     {
         rb.MovePosition(rb.position + movement * speed * Time.deltaTime);
     }
-        void Die()
+    void Die()
     {
-        Debug.Log($"{gameObject.name} muri�.");
-        // ac� podr�as sumar puntos si ten�s un GameManager
+        Debug.Log($"{gameObject.name} murió.");
+
+        // 1. 🛑 EJECUTAR LA LÓGICA DE JUEGO ANTES DE DESTRUIR EL OBJETO
+        if (gameObject.CompareTag("JefeFinal"))
+        {
+            // El GameObject.Find() debe buscar el Canvas por su nombre.
+            // Nota: Si el CanvasFinalGame está desactivado, GameObject.Find() NO LO ENCUENTRA.
+            // Es mejor hacerlo estático o buscar un objeto padre activo.
+
+            // Asumiendo que CanvasFinalGame está ACTIVO al inicio, pero con su PANEL DESACTIVADO, o:
+
+            // Opción Segura (Si CanvasFinalGame está siempre activo en la jerarquía):
+            // Usar FindObjectOfType si el CanvasFinalGame es una variable estática del GameManager
+
+            // Si usamos GameObject.Find, el Canvas DEBE ESTAR ACTIVO para ser encontrado:
+            victoriaGame = GameObject.Find("CanvasFinalGame");
+            Transform panelTransform = victoriaGame.transform.Find("Panel");
+
+            if (panelTransform != null)
+            {
+                panel = panelTransform.gameObject;
+
+                // ✅ Activamos el panel (o podés poner false para ocultarlo)
+                panel.SetActive(true);
+            }
+
+            if (victoriaGame != null)
+            {
+                victoriaGame.SetActive(true); // Activa el Canvas Final
+                Time.timeScale = 0f;          // Pausa el juego
+                Debug.Log("¡Jefe Final derrotado! Mostrando pantalla de Victoria.");
+            }
+            else
+            {
+                Debug.LogError("Error: No se encontró el CanvasFinalGame. Asegúrate de que está activo o usa FindObjectOfType.");
+            }
+        }
+
+        // 2. DESTRUIR EL OBJETO AL FINAL
+        // acá podrías sumar puntos si tenés un GameManager
         Destroy(gameObject);
     }
 
