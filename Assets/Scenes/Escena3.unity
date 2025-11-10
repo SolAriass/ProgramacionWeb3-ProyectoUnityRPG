@@ -2855,6 +2855,7 @@ MonoBehaviour:
   gunPoint: {fileID: 1910517973}
   bulletSpeed: 15
   bulletLife: 5
+  jugador: {fileID: 0}
   playerSprite: {fileID: 497760473}
   animator: {fileID: 497760469}
 --- !u!114 &497760467
@@ -2936,7 +2937,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MovimientoJugador
   fuerzaSalto: 70
-  fuerzaRebote: 20
+  fuerzaRebote: 70
   longitudRaycast: 0.7
   Suelo:
     serializedVersion: 2

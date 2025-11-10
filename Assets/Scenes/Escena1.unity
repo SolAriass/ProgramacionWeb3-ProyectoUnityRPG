@@ -12832,6 +12832,7 @@ MonoBehaviour:
   gunPoint: {fileID: 2032651289}
   bulletSpeed: 15
   bulletLife: 5
+  jugador: {fileID: 0}
   playerSprite: {fileID: 808869716}
   animator: {fileID: 808869712}
 --- !u!114 &808869710
@@ -12913,7 +12914,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MovimientoJugador
   fuerzaSalto: 70
-  fuerzaRebote: 20
+  fuerzaRebote: 70
   longitudRaycast: 0.7
   Suelo:
     serializedVersion: 2
@@ -17218,11 +17219,6 @@ MonoBehaviour:
   speedY: 10
   health: 30
   pointsOnDeath: 10
-  capaObstaculos:
-    serializedVersion: 2
-    m_Bits: 0
-  distanciaFrontal: 0.6
-  distanciaVertical: 0.5
   rb: {fileID: 1028449388}
 --- !u!1 &1031382714
 GameObject:
@@ -31414,11 +31410,6 @@ MonoBehaviour:
   speedY: 10
   health: 30
   pointsOnDeath: 10
-  capaObstaculos:
-    serializedVersion: 2
-    m_Bits: 0
-  distanciaFrontal: 0.6
-  distanciaVertical: 0.5
   rb: {fileID: 158187752}
 --- !u!1 &2093036205
 GameObject:
