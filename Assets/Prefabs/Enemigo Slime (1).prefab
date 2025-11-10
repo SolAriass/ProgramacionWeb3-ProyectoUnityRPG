@@ -12,8 +12,6 @@ GameObject:
   - component: {fileID: 7411345778557522746}
   - component: {fileID: 6675303223734952172}
   - component: {fileID: 2256296644204766151}
-  - component: {fileID: 3915942801348953501}
-  - component: {fileID: 1425067605039478731}
   - component: {fileID: 6909502041687151143}
   - component: {fileID: 3167655595609883185}
   m_Layer: 0
@@ -169,36 +167,6 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 0.18601814, y: 0.25417477}
   m_EdgeRadius: 0
---- !u!114 &3915942801348953501
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8150348962841410931}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 533c858bde8be9b4683ba58990d02d6a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::MovimientoEnemigo
-  player: {fileID: 0}
-  detectionRadius: 50
-  speed: 30
-  rb: {fileID: 6675303223734952172}
---- !u!114 &1425067605039478731
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8150348962841410931}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9689441cc7ce7e54a9991cfddae04500, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Enemigo
-  health: 30
-  pointsOnDeath: 10
 --- !u!95 &6909502041687151143
 Animator:
   serializedVersion: 7
@@ -236,3 +204,6 @@ MonoBehaviour:
   player: {fileID: 0}
   detectionRadius: 50
   speed: 40
+  health: 30
+  pointsOnDeath: 10
+  rb: {fileID: 0}

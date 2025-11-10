@@ -2,20 +2,21 @@ using UnityEngine;
 
 public class Bala : MonoBehaviour
 {
-    public int damage = 10;
+    public int damage = 3;
 
     private void OnTriggerEnter2D(Collider2D other)
     {
         // si la bala toca un objeto con tag Enemy
-        if (other.CompareTag("Enemigo"))
+        if (other.CompareTag("Enemigo") || other.CompareTag("JefeFinal") )
         {
-            EnemyController enemigo = other.GetComponent<EnemyController>();
+            EnemyController enemigoTerrestre = other.GetComponent<EnemyController>();
             EnemyAircraftController enemigoAereo = other.GetComponent<EnemyAircraftController>();
 
-            if (enemigo != null)
+            if (enemigoTerrestre != null)
             {
-                enemigo.TakeDamage(damage);
-            }else if(enemigoAereo != null)
+                enemigoTerrestre.TakeDamage(damage);
+            }
+            else if (enemigoAereo != null)
             {
                 enemigoAereo.TakeDamage(damage);
             }
