@@ -3,16 +3,12 @@ using UnityEngine;
 public class EnemyAircraftController : MonoBehaviour
 {
     public Transform player;
-    public float detectionRadius = 9.0f;
-    public float speedX = 10f;      // horizontal
-    public float speedY = 10f;      // vertical
+    public float detectionRadius = 90.0f;
+    public float speedX = 25f;      // horizontal
+    public float speedY = 15f;      // vertical
     
     public int health = 30; // vida inicial del enemigo
     public int pointsOnDeath = 10; // puntos al morir
-
-    public LayerMask capaObstaculos;     // capa del suelo/obstáculos
-    public float distanciaFrontal = 0.6f;   // largo del raycast frontal
-    public float distanciaVertical = 0.5f; // rayos verticales (arriba/abajo) para buscar espacio
 
     public Rigidbody2D rb;
     private Vector2 movement;
@@ -54,28 +50,28 @@ public class EnemyAircraftController : MonoBehaviour
             // “Frente” depende del signo de X hacia donde vamos
             Vector2 frente = new Vector2(Mathf.Sign(direction.x == 0 ? 1f : direction.x), 0f);
 
-            // Rayo frontal: ¿hay obstáculo delante?
-            bool obstaculoFrente = Physics2D.Raycast(rb.position, frente, distanciaFrontal, capaObstaculos);
+            //// Rayo frontal: ¿hay obstáculo delante?
+            //bool obstaculoFrente = Physics2D.Raycast(rb.position, frente, distanciaFrontal, capaObstaculos);
 
-            if (obstaculoFrente)
-            {
-                // Probamos subir o bajar según espacio
-                bool obstaculoArriba = Physics2D.Raycast(rb.position, Vector2.up, distanciaVertical, capaObstaculos);
-                bool obstaculoAbajo = Physics2D.Raycast(rb.position, Vector2.down, distanciaVertical, capaObstaculos);
+            //if (obstaculoFrente)
+            //{
+            //    // Probamos subir o bajar según espacio
+            //    bool obstaculoArriba = Physics2D.Raycast(rb.position, Vector2.up, distanciaVertical, capaObstaculos);
+            //    bool obstaculoAbajo = Physics2D.Raycast(rb.position, Vector2.down, distanciaVertical, capaObstaculos);
 
-                if (!obstaculoArriba)
-                {
-                    vy = Mathf.Abs(speedY);    // subir
-                }
-                else if (!obstaculoAbajo)
-                {
-                    vy = -Mathf.Abs(speedY);    // bajar
-                }
-                else
-                {
-                    vx = 0f;                    // si no hay espacio, frenar en X
-                }
-            }
+            //    if (!obstaculoArriba)
+            //    {
+            //        vy = Mathf.Abs(speedY);    // subir
+            //    }
+            //    else if (!obstaculoAbajo)
+            //    {
+            //        vy = -Mathf.Abs(speedY);    // bajar
+            //    }
+            //    else
+            //    {
+            //        vx = 0f;                    // si no hay espacio, frenar en X
+            //    }
+            //}
 
             movement = new Vector2(vx, vy);
 
@@ -131,18 +127,18 @@ public class EnemyAircraftController : MonoBehaviour
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, detectionRadius);
 
-        if (rb != null)
-        {
-            Vector2 frente = new Vector2(transform.localScale.x >= 0 ? 1f : -1f, 0f);
-            Gizmos.color = Color.yellow; // frontal
-            Gizmos.DrawLine(rb.position, rb.position + frente * distanciaFrontal);
+        //if (rb != null)
+        //{
+        //    Vector2 frente = new Vector2(transform.localScale.x >= 0 ? 1f : -1f, 0f);
+        //    Gizmos.color = Color.yellow; // frontal
+        //    Gizmos.DrawLine(rb.position, rb.position + frente * distanciaFrontal);
 
-            Gizmos.color = Color.green;  // arriba
-            Gizmos.DrawLine(rb.position, rb.position + Vector2.up * distanciaVertical);
+        //    Gizmos.color = Color.green;  // arriba
+        //    Gizmos.DrawLine(rb.position, rb.position + Vector2.up * distanciaVertical);
 
-            Gizmos.color = Color.cyan;   // abajo
-            Gizmos.DrawLine(rb.position, rb.position + Vector2.down * distanciaVertical);
-        }
+        //    Gizmos.color = Color.cyan;   // abajo
+        //    Gizmos.DrawLine(rb.position, rb.position + Vector2.down * distanciaVertical);
+        //}
     }
 }
 

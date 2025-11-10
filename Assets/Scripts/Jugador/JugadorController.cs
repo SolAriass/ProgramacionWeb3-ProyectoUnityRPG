@@ -6,10 +6,11 @@ using UnityEngine.SceneManagement;
 public class JugadorController : MonoBehaviour
 {
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    public float fuerzaSalto = 30f;
-    public float fuerzaRebote = 20f;
-    public float longitudRaycast = 0.43f;
+    public float fuerzaSalto = 70f;
+    public float fuerzaRebote = 70f;
+    public float longitudRaycast = 0.7f;
     public LayerMask Suelo;
+
 
     private bool enSuelo;
     private bool recibiendoDanio;
@@ -51,13 +52,14 @@ public class JugadorController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-       
-        animator.SetFloat("enMovimiento", Mathf.Abs(mover.x * velocidad));
+        if (!recibiendoDanio)
+        {
+            animator.SetFloat("enMovimiento", Mathf.Abs(mover.x * velocidad));
 
-        if (mover.x < 0) sr.flipX = true;
-        if (mover.x > 0) sr.flipX = false;
+            if (mover.x < 0) sr.flipX = true;
+            if (mover.x > 0) sr.flipX = false;
 
-
+        }
         // Raycast para detectar suelo
         RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down, longitudRaycast, Suelo);
         enSuelo = hit.collider != null;
@@ -71,15 +73,23 @@ public class JugadorController : MonoBehaviour
 
         animator.SetBool("ensuelo", enSuelo);
         animator.SetBool("recibeDanio", recibiendoDanio);
-        
-    
-
 
     }
 
     void FixedUpdate()
     {
-        rb.linearVelocity = new Vector2(mover.x * velocidad, rb.linearVelocity.y);
+        if (!recibiendoDanio)
+        {
+            rb.linearVelocity = new Vector2(mover.x * velocidad, rb.linearVelocity.y);
+        }
+        //else
+        //{
+        //    knockbackTimer -= Time.fixedDeltaTime;
+        //    if (knockbackTimer <= 0f)
+        //    {
+        //        DesactivaDanio();
+        //    }
+        //}
     }
 
     // Este método debe tener el mismo nombre que la acción "Mover" en el Input Actions asset
@@ -100,9 +110,9 @@ public class JugadorController : MonoBehaviour
         if (saltosRestantes > 0 && !recibiendoDanio)
         {
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, 0f);
-            
+
             rb.AddForce(Vector2.up * fuerzaSalto, ForceMode2D.Impulse);
-            
+
             saltosRestantes--;
         }
     }
@@ -111,10 +121,18 @@ public class JugadorController : MonoBehaviour
 
     public void RecibeDanio(Vector2 direccion, int cantDanio)
     {
-        if (!recibiendoDanio)
-        {
-            Debug.Log("Jugador recibe daño!");
-            recibiendoDanio = true;
+        if (recibiendoDanio) return;
+
+        recibiendoDanio = true;
+        //knockbackTimer = tiempoRebote;
+
+        Debug.Log("Jugador recibe daño!");
+
+        animator.SetBool("recibeDanio", recibiendoDanio);
+        rb.linearVelocity = Vector2.zero;
+
+        float sentido = (transform.position.x < direccion.x) ? -1f : 1f;
+        Vector2 rebote = new Vector2(sentido * 1f, 0.6f); // inclinación de 60% hacia arriba
 
             if(recibiendoDanio)
             {
