@@ -9,10 +9,21 @@ public class Bala : MonoBehaviour
         // si la bala toca un objeto con tag Enemy
         if (other.CompareTag("Enemigo"))
         {
-            EnemyController enemigo = other.GetComponent<EnemyController>();
-            if (enemigo != null)
+            EnemyController enemigoTerrestre = other.GetComponent<EnemyController>();
+            EnemyAircraftController enemigoAereo = other.GetComponent<EnemyAircraftController>();
+            GhostEnemyController enemigoFantasma = other.GetComponent<GhostEnemyController>();
+
+            if (enemigoTerrestre != null)
             {
-                enemigo.TakeDamage(damage);
+                enemigoTerrestre.TakeDamage(damage);
+            }
+            else if (enemigoAereo != null)
+            {
+                enemigoAereo.TakeDamage(damage);
+            }
+            else if (enemigoFantasma != null)
+            {
+                enemigoFantasma.TakeDamage(damage);
             }
 
             Destroy(gameObject); // destruir la bala después de impactar
@@ -24,5 +35,3 @@ public class Bala : MonoBehaviour
         }
     }
 }
-
-
