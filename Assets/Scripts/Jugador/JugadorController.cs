@@ -28,6 +28,12 @@ public class JugadorController : MonoBehaviour
 
     public int vida = 100;
 
+    [Header("Ground Check - Edge Collider")]
+    [SerializeField] private bool usarMultiplesRaycast = true;
+    [SerializeField] private float anchoDeteccion = 0.6f;
+    [SerializeField] private int numeroDeRaycasts = 5;
+    [SerializeField] private float offsetRaycast = 0.2f;
+
     void Start()
     {
         playerInput = GetComponent<PlayerInput>();
@@ -36,6 +42,36 @@ public class JugadorController : MonoBehaviour
 
         rb = GetComponent<Rigidbody2D>();
         sr = GetComponent<SpriteRenderer>();
+
+        ConfigurarAntiTrabado();
+    }
+
+    void ConfigurarAntiTrabado()
+    {
+        if (rb == null) return;
+
+        rb.collisionDetectionMode = CollisionDetectionMode2D.Continuous;
+        rb.interpolation = RigidbodyInterpolation2D.Interpolate;
+        rb.constraints = RigidbodyConstraints2D.FreezeRotation;
+        rb.linearDamping = 0f;
+        rb.angularDamping = 0f;
+
+        ConfigurarColliderJugador();
+    }
+
+    void ConfigurarColliderJugador()
+    {
+        BoxCollider2D boxCollider = GetComponent<BoxCollider2D>();
+        if (boxCollider != null)
+        {
+            boxCollider.edgeRadius = 0.05f;
+        }
+
+        CapsuleCollider2D capsuleCollider = GetComponent<CapsuleCollider2D>();
+        if (capsuleCollider != null)
+        {
+            capsuleCollider.direction = CapsuleDirection2D.Vertical;
+        }
     }
 
     void Update()
@@ -48,9 +84,17 @@ public class JugadorController : MonoBehaviour
             if (mover.x > 0) sr.flipX = false;
         }
 
-        // Detectar suelo
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down, longitudRaycast, Suelo);
-        enSuelo = hit.collider != null;
+        // Detección de suelo
+        if (usarMultiplesRaycast)
+        {
+            enSuelo = DetectarSueloMultiple();
+        }
+        else
+        {
+            Vector2 rayOrigin = new Vector2(transform.position.x, transform.position.y - offsetRaycast);
+            RaycastHit2D hit = Physics2D.Raycast(rayOrigin, Vector2.down, longitudRaycast, Suelo);
+            enSuelo = hit.collider != null;
+        }
 
         if (enSuelo && rb.linearVelocity.y <= 0.1f)
         {
@@ -67,6 +111,28 @@ public class JugadorController : MonoBehaviour
         {
             rb.linearVelocity = new Vector2(mover.x * velocidad, rb.linearVelocity.y);
         }
+    }
+
+    private bool DetectarSueloMultiple()
+    {
+        for (int i = 0; i < numeroDeRaycasts; i++)
+        {
+            float offset = 0f;
+            if (numeroDeRaycasts > 1)
+            {
+                offset = Mathf.Lerp(-anchoDeteccion / 2f, anchoDeteccion / 2f, (float)i / (numeroDeRaycasts - 1));
+            }
+
+            Vector2 rayOrigin = new Vector2(transform.position.x + offset, transform.position.y - offsetRaycast);
+            RaycastHit2D hit = Physics2D.Raycast(rayOrigin, Vector2.down, longitudRaycast, Suelo);
+
+            if (hit.collider != null)
+            {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     void OnMover(InputValue value)
@@ -98,7 +164,6 @@ public class JugadorController : MonoBehaviour
         RecibirDaño(cantDanio);
         animator.SetBool("recibeDanio", recibiendoDanio);
 
-        // Aplicar knockback
         rb.linearVelocity = Vector2.zero;
         float sentido = (transform.position.x < direccion.x) ? -1f : 1f;
         Vector2 fuerzaKnockback = new Vector2(sentido * fuerzaRebote * 0.85f, fuerzaRebote * 0.55f);
@@ -114,8 +179,39 @@ public class JugadorController : MonoBehaviour
 
     void OnDrawGizmos()
     {
-        Gizmos.color = Color.red;
-        Gizmos.DrawLine(transform.position, transform.position + Vector3.down * longitudRaycast);
+        if (usarMultiplesRaycast)
+        {
+            for (int i = 0; i < numeroDeRaycasts; i++)
+            {
+                float offset = 0f;
+                if (numeroDeRaycasts > 1)
+                {
+                    offset = Mathf.Lerp(-anchoDeteccion / 2f, anchoDeteccion / 2f, (float)i / (numeroDeRaycasts - 1));
+                }
+
+                Vector3 rayOrigin = new Vector3(
+                    transform.position.x + offset,
+                    transform.position.y - offsetRaycast,
+                    0f
+                );
+
+                Gizmos.color = enSuelo ? Color.green : Color.red;
+                Gizmos.DrawLine(rayOrigin, rayOrigin + Vector3.down * longitudRaycast);
+                Gizmos.DrawWireSphere(rayOrigin, 0.03f);
+            }
+        }
+        else
+        {
+            Vector3 rayOrigin = new Vector3(
+                transform.position.x,
+                transform.position.y - offsetRaycast,
+                0f
+            );
+
+            Gizmos.color = enSuelo ? Color.green : Color.red;
+            Gizmos.DrawLine(rayOrigin, rayOrigin + Vector3.down * longitudRaycast);
+            Gizmos.DrawWireSphere(rayOrigin, 0.05f);
+        }
     }
 
     public void RecibirDaño(int cantidad)
@@ -124,16 +220,44 @@ public class JugadorController : MonoBehaviour
 
         if (vida <= 0)
         {
+            Debug.Log("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
+            Debug.Log("☠️ JUGADOR MUERTO - Iniciando Game Over");
+            Debug.Log($"   EstaMuerto: {EstaMuerto} → true");
+
             EstaMuerto = true;
+
+            // Intentar activar animación de muerte (solo si existe el parámetro)
+            if (animator != null)
+            {
+                foreach (var param in animator.parameters)
+                {
+                    if (param.name == "EstaMuerto")
+                    {
+                        animator.SetBool("EstaMuerto", true);
+                        Debug.Log("   ✅ Animación 'EstaMuerto' activada");
+                        break;
+                    }
+                }
+            }
+
+            // Detener movimiento
             rb.linearVelocity = Vector2.zero;
             mover = Vector2.zero;
 
-            if (GameManager.Instance != null)
+            // Verificar GameManager
+            if (GameManager.Instance == null)
             {
+                Debug.LogError("   ❌ ERROR: GameManager.Instance es NULL");
+                Debug.LogError("   → Verifica que haya un GameManager en la escena");
+            }
+            else
+            {
+                Debug.Log($"   ✅ GameManager encontrado: {GameManager.Instance.name}");
+                Debug.Log("   🎮 Llamando a GameOver()...");
                 GameManager.Instance.GameOver();
             }
 
-            Debug.Log("☠️ Jugador muerto - Game Over");
+            Debug.Log("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
         }
     }
 }
