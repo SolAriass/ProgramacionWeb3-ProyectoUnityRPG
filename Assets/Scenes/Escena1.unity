@@ -4590,7 +4590,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8fed81c4f51248e4baf105ad54964b3a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CambioEscena
-  escenaDestino: Escena3
+  escenaDestino: Escena2
 --- !u!58 &246994340
 CircleCollider2D:
   m_ObjectHideFlags: 0
