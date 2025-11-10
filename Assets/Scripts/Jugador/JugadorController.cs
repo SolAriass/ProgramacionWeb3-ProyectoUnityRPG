@@ -95,14 +95,14 @@ public class JugadorController : MonoBehaviour
     // Este método debe tener el mismo nombre que la acción "Mover" en el Input Actions asset
     void OnMover(InputValue value)
     {
-        if(EstaMuerto) return;
+        if (EstaMuerto) return;
         mover = value.Get<Vector2>();
     }
 
     // Método que maneja la acción de saltar (debe coincidir con "Saltar" en Input Actions)
     void OnSaltar(InputValue value)
     {
-        if (EstaMuerto) return; 
+        if (EstaMuerto) return;
 
         if (!value.isPressed)
             return;
@@ -131,19 +131,21 @@ public class JugadorController : MonoBehaviour
         animator.SetBool("recibeDanio", recibiendoDanio);
         rb.linearVelocity = Vector2.zero;
 
-        float sentido = (transform.position.x < direccion.x) ? -1f : 1f;
-        Vector2 rebote = new Vector2(sentido * 1f, 0.6f); // inclinación de 60% hacia arriba
-
-            if(recibiendoDanio)
-            {
-                RecibirDaño(cantDanio);
-            } 
-
-
-            Vector2 rebote = new Vector2(transform.position.x - direccion.x, 1).normalized;
-            rb.AddForce(rebote * fuerzaRebote, ForceMode2D.Impulse);
+        if (recibiendoDanio)
+        {
+            RecibirDaño(cantDanio);
         }
+
+        float sentido = (transform.position.x < direccion.x) ? -1f : 1f;
+        Vector2 rebote = new Vector2(sentido * 1f, 0.6f);
+        rb.AddForce(rebote * fuerzaRebote, ForceMode2D.Impulse);
+        // inclinación de 60% hacia arriba
+
+
+
     }
+
+
 
     public void DesactivaDanio()
     {
@@ -167,8 +169,8 @@ public class JugadorController : MonoBehaviour
         {
             EstaMuerto = true;
 
-            rb.linearVelocity = Vector2.zero;    
-            mover = Vector2.zero; 
+            rb.linearVelocity = Vector2.zero;
+            mover = Vector2.zero;
 
             if (GameManager.Instance != null)
             {
@@ -179,6 +181,8 @@ public class JugadorController : MonoBehaviour
         }
     }
 }
+
+
 
 /*
 Asegurate de que el nombre del método (OnMover) coincida exactamente con el nombre de la acción "Mover".
