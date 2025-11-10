@@ -169,7 +169,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 29e208db22c39ed4490aa1177c8c74fe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Bala
-  damage: 10
+  damage: 3
 --- !u!95 &-2932312577394074804
 Animator:
   serializedVersion: 7

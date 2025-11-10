@@ -7,6 +7,8 @@ public class EnemyController : MonoBehaviour
     public float speed = 10.0f;
     public int health = 30; // vida inicial del enemigo
     public int pointsOnDeath = 10; // puntos al morir
+    public int cantidadDeDanioHaciaJugador = 10;
+    [SerializeField] private JugadorController jugador;
 
     public Rigidbody2D rb;
     private Vector2 movement;
@@ -61,6 +63,7 @@ public class EnemyController : MonoBehaviour
 
         if (health <= 0)
         {
+            
             Die();
         }
     }
@@ -69,7 +72,9 @@ public class EnemyController : MonoBehaviour
     {
         Debug.Log($"{gameObject.name} murió.");
         // acá podrías sumar puntos si tenés un GameManager
+        jugador.acumularPuntaje(pointsOnDeath);
         Destroy(gameObject);
+       
     }
 
 
@@ -79,7 +84,7 @@ public class EnemyController : MonoBehaviour
         {
             Vector2 direccionDanio = new Vector2(transform.position.x, 0);
             
-            collision.gameObject.GetComponent<JugadorController>().RecibeDanio(direccionDanio, 10);
+            collision.gameObject.GetComponent<JugadorController>().RecibeDanio(direccionDanio, cantidadDeDanioHaciaJugador);
         }
 
     }

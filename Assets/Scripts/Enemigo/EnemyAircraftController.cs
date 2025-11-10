@@ -9,10 +9,13 @@ public class EnemyAircraftController : MonoBehaviour
     
     public int health = 30; // vida inicial del enemigo
     public int pointsOnDeath = 10; // puntos al morir
+    public int cantidadDeDanioHaciaJugador = 10;
 
-    public LayerMask capaObstaculos;     // capa del suelo/obstáculos
     public float distanciaFrontal = 0.6f;   // largo del raycast frontal
     public float distanciaVertical = 0.5f; // rayos verticales (arriba/abajo) para buscar espacio
+    [SerializeField] private JugadorController jugador;
+
+
 
     public Rigidbody2D rb;
     private Vector2 movement;
@@ -25,6 +28,7 @@ public class EnemyAircraftController : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         sr = GetComponent<SpriteRenderer>();
+ 
         rb.gravityScale = 0f;
         rb.freezeRotation = true;
 
@@ -55,13 +59,13 @@ public class EnemyAircraftController : MonoBehaviour
             Vector2 frente = new Vector2(Mathf.Sign(direction.x == 0 ? 1f : direction.x), 0f);
 
             // Rayo frontal: ¿hay obstáculo delante?
-            bool obstaculoFrente = Physics2D.Raycast(rb.position, frente, distanciaFrontal, capaObstaculos);
+            bool obstaculoFrente = Physics2D.Raycast(rb.position, frente, distanciaFrontal);
 
             if (obstaculoFrente)
             {
                 // Probamos subir o bajar según espacio
-                bool obstaculoArriba = Physics2D.Raycast(rb.position, Vector2.up, distanciaVertical, capaObstaculos);
-                bool obstaculoAbajo = Physics2D.Raycast(rb.position, Vector2.down, distanciaVertical, capaObstaculos);
+                bool obstaculoArriba = Physics2D.Raycast(rb.position, Vector2.up, distanciaVertical);
+                bool obstaculoAbajo = Physics2D.Raycast(rb.position, Vector2.down, distanciaVertical);
 
                 if (!obstaculoArriba)
                 {
@@ -110,6 +114,7 @@ public class EnemyAircraftController : MonoBehaviour
     void Die()
     {
         Debug.Log($"{gameObject.name} muri�.");
+        jugador.acumularPuntaje(pointsOnDeath);
         // ac� podr�as sumar puntos si ten�s un GameManager
         Destroy(gameObject);
     }
@@ -121,7 +126,7 @@ public class EnemyAircraftController : MonoBehaviour
         {
             Vector2 direccionDanio = new Vector2(transform.position.x, 0);
             
-            collision.gameObject.GetComponent<JugadorController>().RecibeDanio(direccionDanio, 10);
+            collision.gameObject.GetComponent<JugadorController>().RecibeDanio(direccionDanio, cantidadDeDanioHaciaJugador);
         }
 
     }

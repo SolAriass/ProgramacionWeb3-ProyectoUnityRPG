@@ -1,7 +1,9 @@
-﻿using UnityEngine;
+﻿using TMPro;
+using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.LowLevel;
 using UnityEngine.SceneManagement;
+
 
 public class JugadorController : MonoBehaviour
 {
@@ -15,6 +17,7 @@ public class JugadorController : MonoBehaviour
     private bool recibiendoDanio;
     public bool EstaMuerto { get; private set; } = false;
     private int _monedasAcumuladas = 0;
+    private int _puntosAcumulados = 0;
 
 
     public Rigidbody2D rb;
@@ -23,6 +26,11 @@ public class JugadorController : MonoBehaviour
     private Vector2 mover;
     private PlayerInput playerInput;
     [SerializeField] private Animator animator;
+    [SerializeField] private TextMeshProUGUI textoMonedasUI;
+    [SerializeField] private TextMeshProUGUI textoPuntaje;
+
+
+
 
     SpriteRenderer sr;
 
@@ -35,6 +43,7 @@ public class JugadorController : MonoBehaviour
 
     void Start()
     {
+       
         // Tomamos la referencia al Player Input
         playerInput = GetComponent<PlayerInput>();
 
@@ -47,6 +56,9 @@ public class JugadorController : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
 
         sr = GetComponent<SpriteRenderer>();
+        textoMonedasUI.text = "0";
+        textoPuntaje.text = "Puntos: 0";
+
     }
 
     // Update is called once per frame
@@ -79,10 +91,18 @@ public class JugadorController : MonoBehaviour
     }
 
 
+    public void acumularPuntaje(int puntos)
+    {
+       _puntosAcumulados += puntos;
+         textoPuntaje.text = "Puntos: " + _puntosAcumulados.ToString();
+    }
+
+
     public void acumularMonedas()
     {
         _monedasAcumuladas++;
-        Debug.Log("¡Conseguiste una moneda! - Monedas acumuladas: " + _monedasAcumuladas);
+        Debug.Log("¡Conseguiste una moneda!");
+        textoMonedasUI.text = _monedasAcumuladas.ToString();
     }
 
     void FixedUpdate()
