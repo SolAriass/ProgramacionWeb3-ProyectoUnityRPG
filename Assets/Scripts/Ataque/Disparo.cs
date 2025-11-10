@@ -11,40 +11,36 @@ public class Disparo : MonoBehaviour
     [SerializeField] float bulletLife = 10f;
     [SerializeField] private JugadorController jugador;
 
+
     [SerializeField] SpriteRenderer playerSprite;  // para saber si está mirando a la izquierda
     private bool atacando;
     public Animator animator; // Animator del jugador
 
 
     void OnEnable() => shoot.action.Enable();
-   
     void OnDisable() => shoot.action.Disable();
 
-    private void Start()
+    void Start()
     {
-        if (jugador ==null)
-        {
-            jugador = GetComponent<JugadorController>();
-        }
+        if (jugador == null)
+            jugador = GetComponent<JugadorController>(); // si están en el mismo GameObject
     }
+
 
     void Update()
     {
-        if (jugador != null && jugador.EstaMuerto)
 
-            return;
-        
+        if (jugador != null && jugador.EstaMuerto) return;
+
         // Dispara si se presiona el botón configurado
         if (shoot.action.triggered)
         {
             Fire();
-
         }
 
         animator.SetBool("Atacando", atacando);
     }
 
-    
     void Fire()
     {
         if (bulletPrefab == null || gunPoint == null) return;

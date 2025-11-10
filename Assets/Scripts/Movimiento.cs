@@ -1,5 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
+
 
 [RequireComponent(typeof(Rigidbody2D), typeof(SpriteRenderer))]
 public class Movimiento : MonoBehaviour
@@ -7,14 +9,16 @@ public class Movimiento : MonoBehaviour
     [Header("Movimiento")]
     [SerializeField] float moveSpeed = 7f;
 
-    [Header("Salto (ajusta ac·)")]
+    [Header("Salto (ajusta ac√°)")]
     [SerializeField] float desiredJumpHeight = 2.0f;   // altura en unidades Unity
-    [SerializeField] float fallMultiplier = 1.8f;      // acelera caÌda
-    [SerializeField] float lowJumpMultiplier = 2.2f;   // salto corto si solt·s la tecla
+    [SerializeField] float fallMultiplier = 1.8f;      // acelera ca√≠da
+    [SerializeField] float lowJumpMultiplier = 2.2f;   // salto corto si solt√°s la tecla
 
     [Header("Input System")]
     [SerializeField] InputActionReference move;  // Player/Move (Vector2)
     [SerializeField] InputActionReference jump;  // Player/Jump (Button)
+    [SerializeField] InputActionReference pausa; // Player/Pausa (Button)
+
 
     [Header("Ground Check")]
     [SerializeField] Transform groundCheck;
@@ -22,7 +26,7 @@ public class Movimiento : MonoBehaviour
     [SerializeField] LayerMask groundMask;
     
     [Header("Ground Check Method")]
-    [SerializeField] bool useRaycast = true; // NUEVO: OpciÛn para cambiar mÈtodo
+    [SerializeField] bool useRaycast = true; // Opci√≥n para cambiar m√©todo
 
     Rigidbody2D rb;
     SpriteRenderer sr;
@@ -37,8 +41,8 @@ public class Movimiento : MonoBehaviour
         sr = GetComponent<SpriteRenderer>();
     }
 
-    void OnEnable() { move.action.Enable(); jump.action.Enable(); }
-    void OnDisable() { move.action.Disable(); jump.action.Disable(); }
+    void OnEnable() { move.action.Enable(); jump.action.Enable(); pausa.action.Enable(); }
+    void OnDisable() { move.action.Disable(); jump.action.Disable(); pausa.action.Disable(); }
 
     void Update()
     {
@@ -47,7 +51,7 @@ public class Movimiento : MonoBehaviour
         moveX = Mathf.Clamp(input.x, -1f, 1f);
         if (moveX != 0) sr.flipX = moveX < 0;
 
-        // SALTO: solo si est· en suelo y no se usÛ ya
+        // SALTO: solo si est√° en suelo y no se us√≥ ya
         if (jump.action.triggered && isGrounded && !jumpUsed)
         {
             float g = Mathf.Abs(Physics2D.gravity.y * rb.gravityScale);
@@ -55,42 +59,18 @@ public class Movimiento : MonoBehaviour
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, v);
             jumpUsed = true;   // bloquea nuevos saltos en el aire
         }
+
+        if (pausa.action.triggered)
+        {
+            SceneManager.LoadScene("Inicio");
+        }
     }
 
     void FixedUpdate()
     {
-        // ???????????????????????????????????????????????????????????
-        // DETECCI”N DE SUELO MEJORADA PARA EDGE COLLIDER
-        // ???????????????????????????????????????????????????????????
+        // Detecci√≥n de suelo
         if (groundCheck)
-        {
-            if (useRaycast)
-            {
-                // MÈtodo 1: Raycast (mejor para Edge Collider)
-                float rayDistance = groundCheckSize.y;
-                RaycastHit2D hit = Physics2D.Raycast(
-                    groundCheck.position, 
-                    Vector2.down, 
-                    rayDistance, 
-                    groundMask
-                );
-                isGrounded = hit.collider != null;
-                
-                // Debug: Descomentar para ver el raycast en Scene
-                // Debug.DrawRay(groundCheck.position, Vector2.down * rayDistance, 
-                //     isGrounded ? Color.green : Color.red);
-            }
-            else
-            {
-                // MÈtodo 2: OverlapBox (mÈtodo original)
-                isGrounded = Physics2D.OverlapBox(
-                    groundCheck.position, 
-                    groundCheckSize, 
-                    0f, 
-                    groundMask
-                );
-            }
-        }
+            isGrounded = Physics2D.OverlapBox(groundCheck.position, groundCheckSize, 0f, groundMask);
 
         // si toca el suelo, se habilita de nuevo el salto
         if (isGrounded && rb.linearVelocity.y <= 0.01f)
@@ -99,7 +79,7 @@ public class Movimiento : MonoBehaviour
         // Velocidad horizontal
         rb.linearVelocity = new Vector2(moveX * moveSpeed, rb.linearVelocity.y);
 
-        // CaÌda m·s r·pida y salto corto
+        // Ca√≠da m√°s r√°pida y salto corto
         float g = Mathf.Abs(Physics2D.gravity.y * rb.gravityScale);
         bool jumpHeld = jump.action.IsPressed();
 
@@ -107,7 +87,7 @@ public class Movimiento : MonoBehaviour
         {
             rb.linearVelocity += Vector2.down * g * (fallMultiplier - 1f) * Time.fixedDeltaTime;
         }
-        else if (rb.linearVelocity.y > 0f && !jumpHeld) // soltÛ la tecla
+        else if (rb.linearVelocity.y > 0f && !jumpHeld) // solt√≥ la tecla
         {
             rb.linearVelocity += Vector2.down * g * (lowJumpMultiplier - 1f) * Time.fixedDeltaTime;
         }
@@ -116,19 +96,7 @@ public class Movimiento : MonoBehaviour
     void OnDrawGizmosSelected()
     {
         if (!groundCheck) return;
-        
         Gizmos.color = Color.yellow;
-        
-        if (useRaycast)
-        {
-            // Dibujar raycast
-            Gizmos.DrawLine(groundCheck.position, 
-                groundCheck.position + Vector3.down * groundCheckSize.y);
-        }
-        else
-        {
-            // Dibujar box
-            Gizmos.DrawWireCube(groundCheck.position, groundCheckSize);
-        }
+        Gizmos.DrawWireCube(groundCheck.position, groundCheckSize);
     }
 }

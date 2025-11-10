@@ -1,12 +1,13 @@
 ﻿using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.LowLevel;
 using UnityEngine.SceneManagement;
 
 public class JugadorController : MonoBehaviour
 {
-    public float fuerzaSalto = 30f;
-    public float fuerzaRebote = 20f;
-    public float longitudRaycast = 0.5f;
+    public float fuerzaSalto = 70f;
+    public float fuerzaRebote = 70f;
+    public float longitudRaycast = 0.7f;
     public LayerMask Suelo;
 
     private bool enSuelo;
@@ -14,8 +15,8 @@ public class JugadorController : MonoBehaviour
     public bool EstaMuerto { get; private set; } = false;
 
     public Rigidbody2D rb;
-
     public float velocidad = 100f;
+
     private Vector2 mover;
     private PlayerInput playerInput;
     [SerializeField] private Animator animator;
@@ -33,7 +34,6 @@ public class JugadorController : MonoBehaviour
     [SerializeField] private int numeroDeRaycasts = 5;
     [SerializeField] private float offsetRaycast = 0.2f;
 
-
     void Start()
     {
         playerInput = GetComponent<PlayerInput>();
@@ -43,72 +43,46 @@ public class JugadorController : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         sr = GetComponent<SpriteRenderer>();
 
-        // ═══════════════════════════════════════════════════════════
-        // CONFIGURACIÓN AUTOMÁTICA ANTI-TRABADO
-        // ═══════════════════════════════════════════════════════════
         ConfigurarAntiTrabado();
     }
 
-    // ═══════════════════════════════════════════════════════════
-    // Configuración para evitar trabado en bordes
-    // ═══════════════════════════════════════════════════════════
     void ConfigurarAntiTrabado()
     {
         if (rb == null) return;
 
-        // 1. Collision Detection continuo
         rb.collisionDetectionMode = CollisionDetectionMode2D.Continuous;
-        
-        // 2. Interpolate para movimiento suave
         rb.interpolation = RigidbodyInterpolation2D.Interpolate;
-        
-        // 3. Congelar rotación
         rb.constraints = RigidbodyConstraints2D.FreezeRotation;
-        
-        // 4. Sin drag
         rb.linearDamping = 0f;
         rb.angularDamping = 0f;
-        
-        // 5. Configurar el collider
+
         ConfigurarColliderJugador();
-        
-        Debug.Log("✓ Configuración anti-trabado aplicada");
     }
 
     void ConfigurarColliderJugador()
     {
-        // Intentar obtener BoxCollider2D
         BoxCollider2D boxCollider = GetComponent<BoxCollider2D>();
         if (boxCollider != null)
         {
-            // ═══════════════════════════════════════════════════════════
-            // SOLUCIÓN: Edge Radius redondea las esquinas
-            // ═══════════════════════════════════════════════════════════
-            boxCollider.edgeRadius = 0.05f; // Ajustar según tu sprite (0.05 a 0.1)
-            Debug.Log("✓ BoxCollider2D configurado con Edge Radius: " + boxCollider.edgeRadius);
+            boxCollider.edgeRadius = 0.05f;
         }
-        
-        // Intentar obtener CapsuleCollider2D (RECOMENDADO)
+
         CapsuleCollider2D capsuleCollider = GetComponent<CapsuleCollider2D>();
         if (capsuleCollider != null)
         {
             capsuleCollider.direction = CapsuleDirection2D.Vertical;
-            Debug.Log("✓ CapsuleCollider2D detectado (ideal para platformers)");
-        }
-        
-        // Si no tiene ninguno, advertir
-        if (boxCollider == null && capsuleCollider == null)
-        {
-            Debug.LogWarning("⚠ No se encontró BoxCollider2D ni CapsuleCollider2D. Agrega uno al jugador.");
         }
     }
 
     void Update()
     {
-        animator.SetFloat("enMovimiento", Mathf.Abs(mover.x * velocidad));
+        if (!recibiendoDanio)
+        {
+            animator.SetFloat("enMovimiento", Mathf.Abs(mover.x * velocidad));
 
-        if (mover.x < 0) sr.flipX = true;
-        if (mover.x > 0) sr.flipX = false;
+            if (mover.x < 0) sr.flipX = true;
+            if (mover.x > 0) sr.flipX = false;
+        }
 
         // Detección de suelo
         if (usarMultiplesRaycast)
@@ -133,8 +107,10 @@ public class JugadorController : MonoBehaviour
 
     void FixedUpdate()
     {
-        // Mantener velocidad Y intacta
-        rb.linearVelocity = new Vector2(mover.x * velocidad, rb.linearVelocity.y);
+        if (!recibiendoDanio)
+        {
+            rb.linearVelocity = new Vector2(mover.x * velocidad, rb.linearVelocity.y);
+        }
     }
 
     private bool DetectarSueloMultiple()
@@ -161,18 +137,15 @@ public class JugadorController : MonoBehaviour
 
     void OnMover(InputValue value)
     {
-        if (EstaMuerto)
-            return;
+        if (EstaMuerto) return;
         mover = value.Get<Vector2>();
     }
 
     void OnSaltar(InputValue value)
     {
-        if (EstaMuerto)
-            return;
+        if (EstaMuerto) return;
 
-        if (!value.isPressed)
-            return;
+        if (!value.isPressed) return;
 
         if (saltosRestantes > 0 && !recibiendoDanio)
         {
@@ -182,28 +155,26 @@ public class JugadorController : MonoBehaviour
         }
     }
 
-   public void RecibeDanio(Vector2 direccion, int cantDanio)
-  {
-      if (!recibiendoDanio)
-      {
-          Debug.Log("Jugador recibe daño!");
-          recibiendoDanio = true;
+    public void RecibeDanio(Vector2 direccion, int cantDanio)
+    {
+        if (recibiendoDanio) return;
 
-          if(recibiendoDanio)
-          {
-              RecibirDaño(cantDanio);
-          } 
+        recibiendoDanio = true;
 
+        RecibirDaño(cantDanio);
+        animator.SetBool("recibeDanio", recibiendoDanio);
 
-          Vector2 rebote = new Vector2(transform.position.x - direccion.x, 1).normalized;
-          rb.AddForce(rebote * fuerzaRebote, ForceMode2D.Impulse);
-      }
-  }
+        rb.linearVelocity = Vector2.zero;
+        float sentido = (transform.position.x < direccion.x) ? -1f : 1f;
+        Vector2 fuerzaKnockback = new Vector2(sentido * fuerzaRebote * 0.85f, fuerzaRebote * 0.55f);
+        rb.AddForce(fuerzaKnockback, ForceMode2D.Impulse);
+
+        Debug.Log($"💥 Jugador recibe {cantDanio} de daño | Vida: {vida}");
+    }
 
     public void DesactivaDanio()
     {
         recibiendoDanio = false;
-        rb.linearVelocity = Vector2.zero;
     }
 
     void OnDrawGizmos()
@@ -219,11 +190,11 @@ public class JugadorController : MonoBehaviour
                 }
 
                 Vector3 rayOrigin = new Vector3(
-                    transform.position.x + offset, 
-                    transform.position.y - offsetRaycast, 
+                    transform.position.x + offset,
+                    transform.position.y - offsetRaycast,
                     0f
                 );
-                
+
                 Gizmos.color = enSuelo ? Color.green : Color.red;
                 Gizmos.DrawLine(rayOrigin, rayOrigin + Vector3.down * longitudRaycast);
                 Gizmos.DrawWireSphere(rayOrigin, 0.03f);
@@ -232,11 +203,11 @@ public class JugadorController : MonoBehaviour
         else
         {
             Vector3 rayOrigin = new Vector3(
-                transform.position.x, 
-                transform.position.y - offsetRaycast, 
+                transform.position.x,
+                transform.position.y - offsetRaycast,
                 0f
             );
-            
+
             Gizmos.color = enSuelo ? Color.green : Color.red;
             Gizmos.DrawLine(rayOrigin, rayOrigin + Vector3.down * longitudRaycast);
             Gizmos.DrawWireSphere(rayOrigin, 0.05f);
@@ -246,22 +217,47 @@ public class JugadorController : MonoBehaviour
     public void RecibirDaño(int cantidad)
     {
         vida -= cantidad;
-        Debug.Log("Vida del jugador: " + vida);
-
 
         if (vida <= 0)
         {
+            Debug.Log("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
+            Debug.Log("☠️ JUGADOR MUERTO - Iniciando Game Over");
+            Debug.Log($"   EstaMuerto: {EstaMuerto} → true");
+
             EstaMuerto = true;
-            animator.SetBool("EstaMuerto", true);
+
+            // Intentar activar animación de muerte (solo si existe el parámetro)
+            if (animator != null)
+            {
+                foreach (var param in animator.parameters)
+                {
+                    if (param.name == "EstaMuerto")
+                    {
+                        animator.SetBool("EstaMuerto", true);
+                        Debug.Log("   ✅ Animación 'EstaMuerto' activada");
+                        break;
+                    }
+                }
+            }
+
+            // Detener movimiento
             rb.linearVelocity = Vector2.zero;
             mover = Vector2.zero;
 
-            if (GameManager.Instance != null)
+            // Verificar GameManager
+            if (GameManager.Instance == null)
             {
+                Debug.LogError("   ❌ ERROR: GameManager.Instance es NULL");
+                Debug.LogError("   → Verifica que haya un GameManager en la escena");
+            }
+            else
+            {
+                Debug.Log($"   ✅ GameManager encontrado: {GameManager.Instance.name}");
+                Debug.Log("   🎮 Llamando a GameOver()...");
                 GameManager.Instance.GameOver();
             }
 
-            Debug.Log("Jugador muerto!");
+            Debug.Log("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
         }
     }
 }
