@@ -14,6 +14,7 @@ public class JugadorController : MonoBehaviour
     private bool enSuelo;
     private bool recibiendoDanio;
     public bool EstaMuerto { get; private set; } = false;
+    private int _monedasAcumuladas = 0;
 
 
     public Rigidbody2D rb;
@@ -75,6 +76,13 @@ public class JugadorController : MonoBehaviour
     
 
 
+    }
+
+
+    public void acumularMonedas()
+    {
+        _monedasAcumuladas++;
+        Debug.Log("¡Conseguiste una moneda! - Monedas acumuladas: " + _monedasAcumuladas);
     }
 
     void FixedUpdate()
