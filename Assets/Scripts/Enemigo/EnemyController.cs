@@ -3,14 +3,15 @@
 public class EnemyController : MonoBehaviour
 {
     public Transform player;
-    public float detectionRadius = 5.0f;
-    public float speed = 10.0f;
+    public float detectionRadius = 90.0f;
+    public float speed = 30.0f;
     public int health = 30; // vida inicial del enemigo
     public int pointsOnDeath = 10; // puntos al morir
 
+
     public Rigidbody2D rb;
     private Vector2 movement;
-   // private bool enMovimiento;
+    // private bool enMovimiento;
     private Animator animator;
     SpriteRenderer sr;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -42,22 +43,22 @@ public class EnemyController : MonoBehaviour
 
             movement = new Vector2(direction.x, 0);
 
-           // enMovimiento = true;
-        } /* 
+            // enMovimiento = true;
+        }
 
-        else 
+        else
         {
             movement = Vector2.zero;
-            enMovimiento = false;
+            //enMovimiento = false;
         }
-*/
-        rb.MovePosition(rb.position + movement * speed * Time.deltaTime);
+
+
     }
 
     public void TakeDamage(int damage)
     {
         health -= damage;
-        Debug.Log($"{gameObject.name} recibió {damage} de daño. Vida: {health}");
+        Debug.Log($"{gameObject.name} recibi� {damage} de da�o. Vida: {health}");
 
         if (health <= 0)
         {
@@ -65,10 +66,15 @@ public class EnemyController : MonoBehaviour
         }
     }
 
-    void Die()
+
+    void FixedUpdate()
     {
-        Debug.Log($"{gameObject.name} murió.");
-        // acá podrías sumar puntos si tenés un GameManager
+        rb.MovePosition(rb.position + movement * speed * Time.deltaTime);
+    }
+        void Die()
+    {
+        Debug.Log($"{gameObject.name} muri�.");
+        // ac� podr�as sumar puntos si ten�s un GameManager
         Destroy(gameObject);
     }
 
@@ -79,7 +85,7 @@ public class EnemyController : MonoBehaviour
         {
             Vector2 direccionDanio = new Vector2(transform.position.x, 0);
             
-            collision.gameObject.GetComponent<JugadorController>().RecibeDanio(direccionDanio, 1);
+            collision.gameObject.GetComponent<JugadorController>().RecibeDanio(direccionDanio, 10);
         }
 
     }

@@ -6,13 +6,13 @@ public class EnemyAircraftController : MonoBehaviour
     public float detectionRadius = 90.0f;
     public float speedX = 25f;      // horizontal
     public float speedY = 15f;      // vertical
-
+    
     public int health = 30; // vida inicial del enemigo
     public int pointsOnDeath = 10; // puntos al morir
 
     public Rigidbody2D rb;
     private Vector2 movement;
-    // private bool enMovimiento;
+   // private bool enMovimiento;
     private Animator animator;
     SpriteRenderer sr;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -84,13 +84,13 @@ public class EnemyAircraftController : MonoBehaviour
             // enMovimiento = false;
         }
     }
-    void FixedUpdate()
-    {
-        rb.linearVelocity = Vector2.zero;
-        rb.MovePosition(rb.position + movement * Time.fixedDeltaTime);
-    }
-
-
+        void FixedUpdate()
+        {
+            rb.linearVelocity = Vector2.zero;
+            rb.MovePosition(rb.position + movement * Time.fixedDeltaTime);
+        }
+        
+    
 
     public void TakeDamage(int damage)
     {
@@ -113,10 +113,10 @@ public class EnemyAircraftController : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("Player"))
+        if (collision.gameObject.CompareTag("Player")) 
         {
             Vector2 direccionDanio = new Vector2(transform.position.x, 0);
-
+            
             collision.gameObject.GetComponent<JugadorController>().RecibeDanio(direccionDanio, 10);
         }
 
@@ -141,3 +141,4 @@ public class EnemyAircraftController : MonoBehaviour
         //}
     }
 }
+

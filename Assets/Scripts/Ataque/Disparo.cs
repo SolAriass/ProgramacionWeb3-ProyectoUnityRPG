@@ -9,6 +9,8 @@ public class Disparo : MonoBehaviour
     [SerializeField] Transform gunPoint;           // Punto de salida
     [SerializeField] float bulletSpeed = 15f;
     [SerializeField] float bulletLife = 10f;
+    [SerializeField] private JugadorController jugador;
+
 
     [SerializeField] SpriteRenderer playerSprite;  // para saber si está mirando a la izquierda
     private bool atacando;
@@ -18,8 +20,18 @@ public class Disparo : MonoBehaviour
     void OnEnable() => shoot.action.Enable();
     void OnDisable() => shoot.action.Disable();
 
+    void Start()
+    {
+        if (jugador == null)
+            jugador = GetComponent<JugadorController>(); // si están en el mismo GameObject
+    }
+
+
     void Update()
     {
+
+        if (jugador != null && jugador.EstaMuerto) return;
+
         // Dispara si se presiona el botón configurado
         if (shoot.action.triggered)
         {
