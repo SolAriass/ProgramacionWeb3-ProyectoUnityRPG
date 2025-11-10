@@ -1,7 +1,9 @@
-﻿using UnityEngine;
+﻿using TMPro;
+using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.LowLevel;
 using UnityEngine.SceneManagement;
+
 
 public class JugadorController : MonoBehaviour
 {
@@ -13,6 +15,8 @@ public class JugadorController : MonoBehaviour
     private bool enSuelo;
     private bool recibiendoDanio;
     public bool EstaMuerto { get; private set; } = false;
+    private int _monedasAcumuladas = 0;
+    private int _puntosAcumulados = 0;
 
     public Rigidbody2D rb;
     public float velocidad = 100f;
@@ -20,6 +24,11 @@ public class JugadorController : MonoBehaviour
     private Vector2 mover;
     private PlayerInput playerInput;
     [SerializeField] private Animator animator;
+    [SerializeField] private TextMeshProUGUI textoMonedasUI;
+    [SerializeField] private TextMeshProUGUI textoPuntaje;
+
+
+
 
     SpriteRenderer sr;
 
@@ -36,12 +45,17 @@ public class JugadorController : MonoBehaviour
 
     void Start()
     {
+        // Tomamos la referencia al Player Input
         playerInput = GetComponent<PlayerInput>();
         playerInput.actions.Disable();
         playerInput.actions.FindActionMap("Jugador").Enable();
 
         rb = GetComponent<Rigidbody2D>();
         sr = GetComponent<SpriteRenderer>();
+        
+        // Inicializar UI de monedas y puntaje
+        textoMonedasUI.text = "0";
+        textoPuntaje.text = "Puntos: 0";
 
         ConfigurarAntiTrabado();
     }
@@ -103,6 +117,21 @@ public class JugadorController : MonoBehaviour
 
         animator.SetBool("ensuelo", enSuelo);
         animator.SetBool("recibeDanio", recibiendoDanio);
+    }
+
+
+    public void acumularPuntaje(int puntos)
+    {
+       _puntosAcumulados += puntos;
+         textoPuntaje.text = "Puntos: " + _puntosAcumulados.ToString();
+    }
+
+
+    public void acumularMonedas()
+    {
+        _monedasAcumuladas++;
+        Debug.Log("¡Conseguiste una moneda!");
+        textoMonedasUI.text = _monedasAcumuladas.ToString();
     }
 
     void FixedUpdate()

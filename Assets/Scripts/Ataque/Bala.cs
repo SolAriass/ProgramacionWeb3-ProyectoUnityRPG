@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class Bala : MonoBehaviour
 {
-    public int damage = 10;
+    public int damage = 3;
 
     private void OnTriggerEnter2D(Collider2D other)
     {

@@ -7,10 +7,11 @@ public class EnemyController : MonoBehaviour
     public float speed = 30.0f;
     public int health = 30; // vida inicial del enemigo
     public int pointsOnDeath = 10; // puntos al morir
+    public int cantidadDeDanioHaciaJugador = 10;
+    [SerializeField] private JugadorController jugador;
+    
     private GameObject victoriaGame;
     private GameObject panel;
-
-
 
     public Rigidbody2D rb;
     private Vector2 movement;
@@ -65,6 +66,7 @@ public class EnemyController : MonoBehaviour
 
         if (health <= 0)
         {
+            
             Die();
         }
     }
@@ -74,38 +76,34 @@ public class EnemyController : MonoBehaviour
     {
         rb.MovePosition(rb.position + movement * speed * Time.deltaTime);
     }
+    
     void Die()
     {
         Debug.Log($"{gameObject.name} murió.");
+        
+        // Acumular puntos al jugador
+        if (jugador != null)
+        {
+            jugador.acumularPuntaje(pointsOnDeath);
+        }
 
-        // 1. 🛑 EJECUTAR LA LÓGICA DE JUEGO ANTES DE DESTRUIR EL OBJETO
+        // Verificar si es el Jefe Final
         if (gameObject.CompareTag("JefeFinal"))
         {
-            // El GameObject.Find() debe buscar el Canvas por su nombre.
-            // Nota: Si el CanvasFinalGame está desactivado, GameObject.Find() NO LO ENCUENTRA.
-            // Es mejor hacerlo estático o buscar un objeto padre activo.
-
-            // Asumiendo que CanvasFinalGame está ACTIVO al inicio, pero con su PANEL DESACTIVADO, o:
-
-            // Opción Segura (Si CanvasFinalGame está siempre activo en la jerarquía):
-            // Usar FindObjectOfType si el CanvasFinalGame es una variable estática del GameManager
-
-            // Si usamos GameObject.Find, el Canvas DEBE ESTAR ACTIVO para ser encontrado:
             victoriaGame = GameObject.Find("CanvasFinalGame");
-            Transform panelTransform = victoriaGame.transform.Find("Panel");
-
-            if (panelTransform != null)
-            {
-                panel = panelTransform.gameObject;
-
-                // ✅ Activamos el panel (o podés poner false para ocultarlo)
-                panel.SetActive(true);
-            }
-
+            
             if (victoriaGame != null)
             {
-                victoriaGame.SetActive(true); // Activa el Canvas Final
-                Time.timeScale = 0f;          // Pausa el juego
+                Transform panelTransform = victoriaGame.transform.Find("Panel");
+
+                if (panelTransform != null)
+                {
+                    panel = panelTransform.gameObject;
+                    panel.SetActive(true);
+                }
+
+                victoriaGame.SetActive(true);
+                Time.timeScale = 0f;
                 Debug.Log("¡Jefe Final derrotado! Mostrando pantalla de Victoria.");
             }
             else
@@ -114,8 +112,6 @@ public class EnemyController : MonoBehaviour
             }
         }
 
-        // 2. DESTRUIR EL OBJETO AL FINAL
-        // acá podrías sumar puntos si tenés un GameManager
         Destroy(gameObject);
     }
 
@@ -126,7 +122,7 @@ public class EnemyController : MonoBehaviour
         {
             Vector2 direccionDanio = new Vector2(transform.position.x, 0);
             
-            collision.gameObject.GetComponent<JugadorController>().RecibeDanio(direccionDanio, 10);
+            collision.gameObject.GetComponent<JugadorController>().RecibeDanio(direccionDanio, cantidadDeDanioHaciaJugador);
         }
 
     }
