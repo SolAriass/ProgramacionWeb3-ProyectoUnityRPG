@@ -1,18 +1,21 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 
 public class EnemyController : MonoBehaviour
 {
     public Transform player;
-    public float detectionRadius = 9.0f;
-    public float speed = 10.0f;
+    public float detectionRadius = 90.0f;
+    public float speed = 30.0f;
     public int health = 30; // vida inicial del enemigo
     public int pointsOnDeath = 10; // puntos al morir
     public int cantidadDeDanioHaciaJugador = 10;
     [SerializeField] private JugadorController jugador;
+    
+    private GameObject victoriaGame;
+    private GameObject panel;
 
     public Rigidbody2D rb;
     private Vector2 movement;
-   // private bool enMovimiento;
+    // private bool enMovimiento;
     private Animator animator;
     SpriteRenderer sr;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -44,22 +47,22 @@ public class EnemyController : MonoBehaviour
 
             movement = new Vector2(direction.x, 0);
 
-           // enMovimiento = true;
-        } 
+            // enMovimiento = true;
+        }
 
-        else 
+        else
         {
             movement = Vector2.zero;
             //enMovimiento = false;
         }
 
-        rb.MovePosition(rb.position + movement * speed * Time.deltaTime);
+
     }
 
     public void TakeDamage(int damage)
     {
         health -= damage;
-        Debug.Log($"{gameObject.name} recibió {damage} de daño. Vida: {health}");
+        Debug.Log($"{gameObject.name} recibiÃ³ {damage} de daÃ±o. Vida: {health}");
 
         if (health <= 0)
         {
@@ -68,13 +71,48 @@ public class EnemyController : MonoBehaviour
         }
     }
 
+
+    void FixedUpdate()
+    {
+        rb.MovePosition(rb.position + movement * speed * Time.deltaTime);
+    }
+    
     void Die()
     {
-        Debug.Log($"{gameObject.name} murió.");
-        // acá podrías sumar puntos si tenés un GameManager
-        jugador.acumularPuntaje(pointsOnDeath);
+        Debug.Log($"{gameObject.name} muriÃ³.");
+        
+        // Acumular puntos al jugador
+        if (jugador != null)
+        {
+            jugador.acumularPuntaje(pointsOnDeath);
+        }
+
+        // Verificar si es el Jefe Final
+        if (gameObject.CompareTag("JefeFinal"))
+        {
+            victoriaGame = GameObject.Find("CanvasFinalGame");
+            
+            if (victoriaGame != null)
+            {
+                Transform panelTransform = victoriaGame.transform.Find("Panel");
+
+                if (panelTransform != null)
+                {
+                    panel = panelTransform.gameObject;
+                    panel.SetActive(true);
+                }
+
+                victoriaGame.SetActive(true);
+                Time.timeScale = 0f;
+                Debug.Log("Â¡Jefe Final derrotado! Mostrando pantalla de Victoria.");
+            }
+            else
+            {
+                Debug.LogError("Error: No se encontrÃ³ el CanvasFinalGame. AsegÃºrate de que estÃ¡ activo o usa FindObjectOfType.");
+            }
+        }
+
         Destroy(gameObject);
-       
     }
 
 

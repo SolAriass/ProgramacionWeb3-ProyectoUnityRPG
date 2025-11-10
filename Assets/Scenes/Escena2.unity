@@ -5220,6 +5220,10 @@ MonoBehaviour:
   textoMonedasUI: {fileID: 1036799032}
   textoPuntaje: {fileID: 293813074}
   vida: 100
+  usarMultiplesRaycast: 1
+  anchoDeteccion: 0.6
+  numeroDeRaycasts: 5
+  offsetRaycast: 0.2
 --- !u!61 &497760471
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -9487,7 +9491,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8fed81c4f51248e4baf105ad54964b3a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CambioEscena
-  escenaDestino: Escena2
+  escenaDestino: Escena3
 --- !u!95 &1016085055
 Animator:
   serializedVersion: 7
@@ -12701,7 +12705,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8fed81c4f51248e4baf105ad54964b3a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CambioEscena
-  escenaDestino: Escena2
+  escenaDestino: Escena3
 --- !u!95 &1240443630
 Animator:
   serializedVersion: 7
@@ -15081,7 +15085,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8fed81c4f51248e4baf105ad54964b3a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CambioEscena
-  escenaDestino: Escena2
+  escenaDestino: Escena3
 --- !u!95 &1472170562
 Animator:
   serializedVersion: 7

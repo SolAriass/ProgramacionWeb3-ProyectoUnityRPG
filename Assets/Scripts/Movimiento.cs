@@ -24,6 +24,9 @@ public class Movimiento : MonoBehaviour
     [SerializeField] Transform groundCheck;
     [SerializeField] Vector2 groundCheckSize = new(0.6f, 0.1f);
     [SerializeField] LayerMask groundMask;
+    
+    [Header("Ground Check Method")]
+    [SerializeField] bool useRaycast = true; // Opción para cambiar método
 
     Rigidbody2D rb;
     SpriteRenderer sr;

@@ -1169,7 +1169,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8fed81c4f51248e4baf105ad54964b3a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CambioEscena
-  escenaDestino: Escena3
+  escenaDestino: Escena2
 --- !u!58 &91774369
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -14160,7 +14160,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MovimientoJugador
   fuerzaSalto: 70
-  fuerzaRebote: 20
+  fuerzaRebote: 70
   longitudRaycast: 0.7
   Suelo:
     serializedVersion: 2
@@ -14171,6 +14171,10 @@ MonoBehaviour:
   textoMonedasUI: {fileID: 119502269}
   textoPuntaje: {fileID: 2092166152}
   vida: 100
+  usarMultiplesRaycast: 1
+  anchoDeteccion: 0.6
+  numeroDeRaycasts: 5
+  offsetRaycast: 0.2
 --- !u!61 &808869714
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -16500,7 +16504,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8fed81c4f51248e4baf105ad54964b3a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CambioEscena
-  escenaDestino: Escena3
+  escenaDestino: Escena2
 --- !u!58 &936398685
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -29089,7 +29093,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8fed81c4f51248e4baf105ad54964b3a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CambioEscena
-  escenaDestino: Escena3
+  escenaDestino: Escena2
 --- !u!58 &1717928753
 CircleCollider2D:
   m_ObjectHideFlags: 0
