@@ -13,7 +13,9 @@ public class JugadorController : MonoBehaviour
 
     private bool enSuelo;
     private bool recibiendoDanio;
-    
+    public bool EstaMuerto { get; private set; } = false;
+
+
     public Rigidbody2D rb;
 
     public float velocidad = 100f;
@@ -83,12 +85,15 @@ public class JugadorController : MonoBehaviour
     // Este método debe tener el mismo nombre que la acción "Mover" en el Input Actions asset
     void OnMover(InputValue value)
     {
+        if(EstaMuerto) return;
         mover = value.Get<Vector2>();
     }
 
     // Método que maneja la acción de saltar (debe coincidir con "Saltar" en Input Actions)
     void OnSaltar(InputValue value)
     {
+        if (EstaMuerto) return; 
+
         if (!value.isPressed)
             return;
 
@@ -139,12 +144,15 @@ public class JugadorController : MonoBehaviour
         vida -= cantidad;
         Debug.Log("Vida del jugador: " + vida);
 
-        // Activar animación de recibir golpe
-        animator.SetTrigger("Hit");
 
         if (vida <= 0)
         {
-            if(GameManager.Instance != null)
+            EstaMuerto = true;
+
+            rb.linearVelocity = Vector2.zero;    
+            mover = Vector2.zero; 
+
+            if (GameManager.Instance != null)
             {
                 GameManager.Instance.GameOver();
             }

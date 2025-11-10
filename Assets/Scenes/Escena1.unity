@@ -4706,7 +4706,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0.7434655, w: 4.2764006}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 0
+  m_hasFontAssetChanged: 1
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!222 &287633522
@@ -12403,8 +12403,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f69331996fbebaf4a90a2639744b5b68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
-  gameOverPanel: {fileID: 1185008354}
-  gameOverText: {fileID: 1246746996}
+  gameOverPanel: {fileID: 1364026207}
+  gameOverText: {fileID: 287633521}
   reiniciarButton: {fileID: 577418949}
   menuButton: {fileID: 1953515501}
 --- !u!4 &787834655
