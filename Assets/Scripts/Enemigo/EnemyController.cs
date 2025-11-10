@@ -1,4 +1,4 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 
 public class EnemyController : MonoBehaviour
 {
@@ -58,7 +58,7 @@ public class EnemyController : MonoBehaviour
     public void TakeDamage(int damage)
     {
         health -= damage;
-        Debug.Log($"{gameObject.name} recibió {damage} de daño. Vida: {health}");
+        Debug.Log($"{gameObject.name} recibiï¿½ {damage} de daï¿½o. Vida: {health}");
 
         if (health <= 0)
         {
@@ -73,8 +73,8 @@ public class EnemyController : MonoBehaviour
     }
         void Die()
     {
-        Debug.Log($"{gameObject.name} murió.");
-        // acá podrías sumar puntos si tenés un GameManager
+        Debug.Log($"{gameObject.name} muriï¿½.");
+        // acï¿½ podrï¿½as sumar puntos si tenï¿½s un GameManager
         Destroy(gameObject);
     }
 

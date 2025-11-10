@@ -11,6 +11,7 @@ public class Bala : MonoBehaviour
         {
             EnemyController enemigoTerrestre = other.GetComponent<EnemyController>();
             EnemyAircraftController enemigoAereo = other.GetComponent<EnemyAircraftController>();
+            GhostEnemyController enemigoFantasma = other.GetComponent<GhostEnemyController>();
 
             if (enemigoTerrestre != null)
             {
@@ -19,6 +20,10 @@ public class Bala : MonoBehaviour
             else if (enemigoAereo != null)
             {
                 enemigoAereo.TakeDamage(damage);
+            }
+            else if (enemigoFantasma != null)
+            {
+                enemigoFantasma.TakeDamage(damage);
             }
 
             Destroy(gameObject); // destruir la bala después de impactar

@@ -8,6 +8,7 @@ TagManager:
   - Bala
   - Enemigo
   - Ground
+  - Lava
   layers:
   - Default
   - TransparentFX
@@ -44,6 +45,18 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Background
+    uniqueID: 854461381
+    locked: 0
+  - name: Ground
+    uniqueID: 3272481389
+    locked: 0
+  - name: Objects
+    uniqueID: 1912082065
+    locked: 0
+  - name: Characters
+    uniqueID: 3875902917
     locked: 0
   m_RenderingLayers:
   - Default

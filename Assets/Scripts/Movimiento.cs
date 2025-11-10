@@ -25,6 +25,9 @@ public class Movimiento : MonoBehaviour
     [SerializeField] Vector2 groundCheckSize = new(0.6f, 0.1f);
     [SerializeField] LayerMask groundMask;
 
+    [Header("Ground Check Method")]
+    [SerializeField] bool useRaycast = true; // NUEVO: Opción para cambiar método
+
     Rigidbody2D rb;
     SpriteRenderer sr;
 
@@ -65,7 +68,7 @@ public class Movimiento : MonoBehaviour
 
     void FixedUpdate()
     {
-        // Detección de suelo
+        // Detecci�n de suelo
         if (groundCheck)
             isGrounded = Physics2D.OverlapBox(groundCheck.position, groundCheckSize, 0f, groundMask);
 
@@ -93,7 +96,19 @@ public class Movimiento : MonoBehaviour
     void OnDrawGizmosSelected()
     {
         if (!groundCheck) return;
+        
         Gizmos.color = Color.yellow;
+        
+        if (useRaycast)
+        {
+            // Dibujar raycast
+            Gizmos.DrawLine(groundCheck.position, 
+                groundCheck.position + Vector3.down * groundCheckSize.y);
+        }
+        else
+        {
+            // Dibujar box
         Gizmos.DrawWireCube(groundCheck.position, groundCheckSize);
     }
+}
 }
