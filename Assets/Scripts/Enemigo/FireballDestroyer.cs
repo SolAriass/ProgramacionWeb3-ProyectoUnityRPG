@@ -2,6 +2,7 @@
 
 public class FireballDestroyer : MonoBehaviour
 {
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
         // 1. Detección del Suelo (Untagged)
